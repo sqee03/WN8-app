@@ -1,0 +1,42 @@
+/*
+------------------------------------
+    Page layout
+------------------------------------
+*/
+body {
+	font-family: 'Roboto', Arial, Verdana, Helvetica, sans-serif; 
+	text-align: left;
+	font-size: 12px;
+	color: #fff;
+	background: #222;
+}
+
+h2 {
+	font-size: 150%;
+	margin: 0;
+	padding: 0 0 10px 0;
+}
+hr {
+	clear: both;
+}
+.databox {
+	float: left;
+	padding: 15px;
+	margin: 10px;
+}
+
+/*
+------------------------------------
+    Angular
+------------------------------------
+*/
+input {
+	padding: 5px;
+	font-size: 15px;
+	border: 1px solid white;
+	transition: 0.5s linear all;
+}
+.ng-invalid {
+	background-color: red;
+	color: white;
+}

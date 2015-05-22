@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+	<link rel="stylesheet" href="css/layout.css" />
+
+	<!-- JS Loading -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="js/factory.js"></script>
+    <script src="js/searchJSON.js"></script>
+    <script src="js/wn8.js"></script>
+    <script src="js/controller.js"></script>
+</head>
+
+<body ng-app="myApp">
+
+
+
+<div ng-controller="myCtrl">
+  <input type="text" placeholder="Player name" ng-model="playerName" ng-keydown="$event.which === 13 && getPlayerID(playerName)"  ngMinlength="3" ngMaxlength="24" />
+  <input type="text" placeholder="tank ID" ng-model="tankID" ng-keydown="$event.which === 13 && getPlayerTankStats(tankID)" />
+  <button ng-click="getPlayerInfo()">get player data</button>
+  <button ng-click="getPlayerTankStats(tankID)">get player tank data</button>
+  <button ng-click="getTankInfo(tankID)">get tank info</button>
+  <input type="radio" id="server-eu" ng-model="region.server" value="eu" /><label for="server-eu">EU</label>
+  <input type="radio" id="server-na" ng-model="region.server" value="com" /><label for="server-na">NA</label>
+
+  <hr />
+
+  <button ng-click="displayWN8('16641')">calc WN8</button><br />
+  <button ng-click="callSearch()">search in JSON</button><br />
+  wn8 for tank "{{requestedTank}}/{{tankName}}": <span style="font-size: 16px; color: yellow">{{wn8}}</span><br />
+  recent values: {{recentValues}}<br />
+  expected values: {{expectedValues}}<br />
+  JSON search resutls: {{JSONsearchResults}}<br />
+  result test: {{resultTest}}<br />
+  new data: {{newData}}
+  <hr />
+
+  <button ng-click="execute('16641')">get recent tank stats</button><br />
+  your stats: {{yourStats}}<br />
+  error: {{yourStatsError}}
+
+  <hr />
+
+  <div class="databox" style="background-color: #444;">
+    <u>Selected region:</u> {{region.server}}, <u>appID:</u> {{region.appID}}<br />
+    <u>URL:</u> {{urlPlayerID + playerName}}
+  </div>
+
+  <hr />
+
+  <div class="databox" style="border:1px solid green;">
+    Players with similar nick: {{playerBaseInfo.count}}<br />
+    Displaying data for: {{playerBaseInfo.data[0].nickname}}<br />
+    Player ID: {{playerID}}<br />
+    <span style="color:red;font-style:italic">{{errorMessage}}</span>
+  </div>
+
+  <div class="databox" style="border:1px solid red;">
+    <h2>Ratings</h2>
+    Win rate: {{playerWR | number:2}} %<br />
+    Personal rating: {{globalRating}}<br />
+  </div>
+
+  <div class="databox" style="border:1px dashed yellow;">
+    <h2>Player Info</h2>
+    Battles: {{battles}}<br />
+    Average dmg: {{avgDmg | number:0}}<br />
+    Average frags: {{avgFrags | number:1}}<br />
+    Average defense points: {{avgDef | number:1}}<br />
+    Average spot: {{avgSpot | number:1}}<br />
+    Survival ratio: {{survivalRatio | number:0}} %<br />
+  </div>
+
+  <div class="databox" style="border:1px solid lightblue; border-radius: 8px; background-color: #333; color: #fff;">
+    <h2>Tank Info from Tankopedia</h2>
+    Tank name(searched for '{{tankID}}') : {{tankName}}<br />
+    {{tankImg}}
+  </div>
+
+  <div class="databox" style="border:1px solid violet; background-color: #333; color: #fff;">
+    <h2>Tank Stats</h2>
+      <ul>
+        <li>dmg: {{avgDmg}}</li>
+        <li>spot: {{avgSpot}}</li>
+        <li>frag: {{avgFrag}}</li>
+        <li>def: {{avgDef}}</li>
+        <li>wr: {{avgWinRate}}</li>
+      </ul>
+    {{PlayerTankStats}}<br />
+  </div>
+
+  <div class="databox" style="border:1px solid #333; background-color: #999; color: #000;">
+    <h2>Account Info</h2>
+    Created: {{accountCreated | date: 'dd-MM-yyyy'}}<br />
+    Last battle: {{accountLastBattle | date: 'dd-MM-yyyy HH:mm'}}<br />
+    Loged off: {{accountLogout | date: 'dd-MM-yyyy HH:mm'}}
+  </div>
+
+  <hr />
+
+  <div style="padding:20px">
+    <ul ng-repeat="itu in statistics">
+      <li>{{itu}}</li>
+    </ul>
+  </div>
+</div>
+
+<pre>WOT licencing topic: <a href="http://forum.worldoftanks.eu/index.php?/topic/433192-play-developer-account-suspended-because-i-built-an-world-of-tanks-related-app/">http://forum.worldoftanks.eu/index.php?/topic/433192-play-developer-account-suspended-because-i-built-an-world-of-tanks-related-app/</a></pre>
+<pre>WG Developer reply: <a href="http://forum.worldoftanks.eu/index.php?/topic/433192-play-developer-account-suspended-because-i-built-an-world-of-tanks-related-app/page__pid__9174554#entry9174554">http://forum.worldoftanks.eu/index.php?/topic/433192-play-developer-account-suspended-because-i-built-an-world-of-tanks-related-app/page__pid__9174554#entry9174554</a></pre>
+
+</body>
+</html>

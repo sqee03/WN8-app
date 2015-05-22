@@ -1,0 +1,7 @@
+
+
+[Input] player name 
+	--> call API for player ID --> [http API]
+return player ID 
+	--> call API for player info --> [http API]
+return player info
