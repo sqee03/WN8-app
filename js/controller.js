@@ -1,6 +1,6 @@
 var app = angular.module('myApp');
 
-app.controller('myCtrl', function ($scope, $q, $window, apiFactory, wn8Factory, searchJSON) {
+app.controller('myCtrl', function ($scope, $q, $window, apiCalls, wn8Factory, searchJSON) {
 
 	// Default player ID
 	var playerID = "";
@@ -34,7 +34,7 @@ app.controller('myCtrl', function ($scope, $q, $window, apiFactory, wn8Factory, 
   	// -----------------------------------------------------------------------------------------------------------------
 	// Input: player name --> get player ID and use it for next API call
 	$scope.getPlayerID = function (playerName) {
-		apiFactory.getData($scope.urlPlayerID + playerName)
+		apiCalls.getData($scope.urlPlayerID + playerName)
 			.success(function (response) {
 				$scope.playerBaseInfo = response;
 
@@ -59,7 +59,7 @@ app.controller('myCtrl', function ($scope, $q, $window, apiFactory, wn8Factory, 
   	// -----------------------------------------------------------------------------------------------------------------
 	// called after recieving player ID --> get player info
 	$scope.getPlayerInfo = function () {
-		apiFactory.getData($scope.urlPlayerInfo + playerID)
+		apiCalls.getData($scope.urlPlayerInfo + playerID)
 			.success(function (response) {
 				return $scope.Calc(response, playerID, "player");
 	  	})
@@ -84,16 +84,8 @@ app.controller('myCtrl', function ($scope, $q, $window, apiFactory, wn8Factory, 
   	// Load recent player stats for requested tank
 
 	// Default variable pre-set
-	var loaded = null;
 	var loaded2 = null;
-	var recendData = null;
 	var expectedData = null;
-
-	var avgDmg = null;
-	var avgFrag = null;
-	var avgSpot = null;
-	var avgDef = null;
-	var avgWinRate = null;
 
 	var expDmg = null;
 	var expFrag = null;
@@ -101,32 +93,9 @@ app.controller('myCtrl', function ($scope, $q, $window, apiFactory, wn8Factory, 
 	var expDef = null;
 	var expWinRate = null;
 
-	$scope.loadRecentStats = function(tankID) {
-    	if (loaded == null) // continue if variable is not defined yet
-      		loaded = apiFactory.getData($scope.urlPlayerTankStats + playerID + "&tank_id=" + tankID) // call API backend
-        	.then(function(backendResponse) { // use API response to define variable
-
-        		recentData = backendResponse.data.data[playerID][0].all;
-				var battles = recentData.battles;
-        		
-        		// temporary saving filtered API data
-			    avgDmg = recentData.damage_dealt / battles;
-				avgFrag = recentData.frags / battles;
-				avgSpot = recentData.spotted / battles;
-				avgDef = recentData.dropped_capture_points / battles;
-				avgWinRate = (recentData.wins / battles) * 100;
-
-				console.debug("recent values(API) for '" + tankID + "': avgDmg:" + avgDmg + ", avgFrag:" + avgFrag + ", avgSpot:" + avgSpot + ", avgDef:" + avgDef + ", avgWinRate:" + avgWinRate);
-        	});
-
-        console.log("loaded 'loadRecentStats'");
-
-    	return loaded; // return redefined variable
-  	};
-
   	$scope.loadExpectedStats = function(tankID) {
     	if (loaded2 == null) // continue if variable is not defined yet
-      		loaded2 = apiFactory.getData(urlExpextedTankValues) // call API backend
+      		loaded2 = apiCalls.getData(urlExpextedTankValues) // call API backend
         	.then(function(backendResponse) { // use API response to define variable
 
         		expectedData = backendResponse.data.data[1]; // need to provide proper number for returning tank stats
@@ -218,7 +187,7 @@ app.controller('myCtrl', function ($scope, $q, $window, apiFactory, wn8Factory, 
 	$scope.getTankInfo = function (tankID) {
 		console.log("loaded 'tankInfo'");
 
-		apiFactory.getData($scope.urlTankInfo + tankID)
+		apiCalls.getData($scope.urlTankInfo + tankID)
 			.success(function (response) {
 				
 				$scope.tankName = response.data[tankID].localized_name;

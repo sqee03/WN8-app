@@ -1,7 +1,7 @@
-var app = angular.module('myApp', []);
+angular.module('myApp', [])
 
 // API backend
-app.factory('apiFactory', ['$http', function ($http) {
+.factory('apiCalls', ['$http', function ($http) {
 
 	console.log("- factory 'apiFactory' loaded");
 
