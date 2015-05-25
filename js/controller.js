@@ -1,6 +1,6 @@
-var app = angular.module('myApp');
+angular.module('myApp')
 
-app.controller('myCtrl', function ($scope, $q, $window, apiCalls, wn8Factory, searchJSON) {
+.controller('myCtrl', function ($scope, $q, $window, apiCalls, tankInfo, tankStats, wn8Factory, searchJSON) {
 
 	// Default player ID
 	var playerID = "";
@@ -184,27 +184,7 @@ app.controller('myCtrl', function ($scope, $q, $window, apiCalls, wn8Factory, se
 
   	// -----------------------------------------------------------------------------------------------------------------
 	// Get tank info from Tankopedia
-	$scope.getTankInfo = function (tankID) {
-		console.log("loaded 'tankInfo'");
-
-		apiCalls.getData($scope.urlTankInfo + tankID)
-			.success(function (response) {
-				
-				$scope.tankName = response.data[tankID].localized_name;
-				$scope.tankImg = response.data[tankID].image;
-
-				console.debug("tank name for " + tankID + " : " + $scope.tankName);
-				console.debug("tank img for " + tankID + " : " + $scope.tankImg);
-
-				return {
-					tankName : $scope.tankName,
-					tankImg : $scope.tankImg
-				}
-	  	})
-	  		.error(function () {
-	  		// something
-	  	});	
-	};
+	var showTankInfo = tankInfo.getTankInfo("16641");
 
 
   	// -----------------------------------------------------------------------------------------------------------------
