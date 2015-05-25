@@ -5,7 +5,7 @@ app.factory('searchJSON', function () {
 
 	var searchJSON = { working : "no" };
 
-	console.log("- factory 'searchJSON' loaded");
+	console.log("- service 'searchJSON' loaded");
 
 	
 

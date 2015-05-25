@@ -5,7 +5,7 @@ angular.module('myApp')
 
 	var wn8lib = {};
 
-	console.log("- factory 'wn8Factory' loaded");
+	console.log("- service 'wn8Factory' loaded");
 
 	// example tank MT-25 / id: 16641
 

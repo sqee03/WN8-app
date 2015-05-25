@@ -7,7 +7,10 @@
 	<!-- JS Loading -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="js/api-calls.js"></script>
+    <script src="js/player-id.js"></script>
+    <script src="js/player-info.js"></script>
     <script src="js/tank-stats.js"></script>
+    <script src="js/expected-tank-stats.js"></script>
     <script src="js/tank-info.js"></script>
     <script src="js/searchJSON.js"></script>
     <script src="js/wn8.js"></script>
@@ -21,7 +24,7 @@
 <div ng-controller="myCtrl">
   <input type="text" placeholder="Player name" ng-model="playerName" ng-keydown="$event.which === 13 && getPlayerID(playerName)"  ngMinlength="3" ngMaxlength="24" />
   <input type="text" placeholder="tank ID" ng-model="tankID" ng-keydown="$event.which === 13 && getPlayerTankStats(tankID)" />
-  <button ng-click="getPlayerInfo()">get player data</button>
+  <button ng-click="getPlayerID(playerName)">get player ID</button>
   <button ng-click="getPlayerTankStats(tankID)">get player tank data</button>
   <button ng-click="getTankInfo(tankID)">get tank info</button>
   <input type="radio" id="server-eu" ng-model="region.server" value="eu" /><label for="server-eu">EU</label>

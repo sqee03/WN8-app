@@ -1,9 +1,7 @@
 angular.module('myApp')
 
-.controller('myCtrl', function ($scope, $q, $window, apiCalls, tankInfo, tankStats, wn8Factory, searchJSON) {
+.controller('myCtrl', function ($scope, $q, $window, apiCalls, playerID, playerInfo, tankInfo, tankStats, expectedTankStats, wn8Factory, searchJSON) {
 
-	// Default player ID
-	var playerID = "";
 
 	// Default region
 	$scope.region = { server: "eu" };
@@ -33,27 +31,12 @@ angular.module('myApp')
 
   	// -----------------------------------------------------------------------------------------------------------------
 	// Input: player name --> get player ID and use it for next API call
-	$scope.getPlayerID = function (playerName) {
-		apiCalls.getData($scope.urlPlayerID + playerName)
-			.success(function (response) {
-				$scope.playerBaseInfo = response;
+	var playerID;
 
-				if ($scope.playerBaseInfo.count != "0") {
-					// more than 1 player is matching searched text - using exact match
-					// nice to have: let user to manualy select nickname from list
-					$scope.playerID = response.data[0].account_id;
-					$scope.errorMessage = ""; // clear previously displayed errors
-					return playerID = $scope.playerID;
-				}
-				else {
-					$scope.errorMessage = "No player found";
-				}
-	  	})
-	  		.error(function () {
-	  		// something
-	  		$scope.errorMessage = "Ooooops. Something went wrong."
-	  	});
-	};
+	$scope.getPlayerID = function(playerName) {
+		playerID = playerID.getPlayerID(playerName);
+		console.debug(playerID);
+	}
 
 
   	// -----------------------------------------------------------------------------------------------------------------
@@ -83,46 +66,6 @@ angular.module('myApp')
   	// -----------------------------------------------------------------------------------------------------------------
   	// Load recent player stats for requested tank
 
-	// Default variable pre-set
-	var loaded2 = null;
-	var expectedData = null;
-
-	var expDmg = null;
-	var expFrag = null;
-	var expSpot = null;
-	var expDef = null;
-	var expWinRate = null;
-
-  	$scope.loadExpectedStats = function(tankID) {
-    	if (loaded2 == null) // continue if variable is not defined yet
-      		loaded2 = apiCalls.getData(urlExpextedTankValues) // call API backend
-        	.then(function(backendResponse) { // use API response to define variable
-
-        		expectedData = backendResponse.data.data[1]; // need to provide proper number for returning tank stats
-
-        		var searchSource = backendResponse.data.data;
-  				var newData = null;
-
-  				var updateData = searchJSON.findObj(searchSource,'IDNum','16641').then(function(searchResults) {
-  					console.debug("search results: " + searchResults);
-  					newData = searchResults;
-  				});
-
-        		
-        		// temporary saving filtered API data
-			    expDmg = expectedData.expDamage;
-				expFrag = expectedData.expFrag;
-				expSpot = expectedData.expSpot;
-				expDef = expectedData.expDef;
-				expWinRate = expectedData.expWinRate;
-
-				console.debug("expected values(local JSON) for '" + tankID + "': expDmg:" + expDmg + ", expFrag:" + expFrag + ", expSpot:" + expSpot + ", expDef:" + expDef + ", expWinRate:" + expWinRate);
-        	});
-
-        console.log("loaded 'loadExpectedStats'");
-
-    	return loaded2; // return redefined variable
-  	};
 
   	$scope.execute = function(tankID) {
     	return $scope.loadRecentStats(tankID).then($scope.loadExpectedStats(tankID)).then(function() { // call 'loadRecentStats' and wait untill it updates variables 
@@ -184,32 +127,9 @@ angular.module('myApp')
 
   	// -----------------------------------------------------------------------------------------------------------------
 	// Get tank info from Tankopedia
-	var showTankInfo = tankInfo.getTankInfo("16641");
+	$scope.showTankInfo = function() {
+		tankInfo.getTankInfo("16641");
+	};
 
-
-  	// -----------------------------------------------------------------------------------------------------------------
-	// called after grabing data from API
-	$scope.Calc = function (dataFromApi, playerID, tankID) {
-		$scope.statistics = dataFromApi.data[playerID].statistics.all;
-
-		// ratings
-		$scope.globalRating = dataFromApi.data[playerID].global_rating;
-		$scope.playerWR = (dataFromApi.data[playerID].statistics.all.wins / dataFromApi.data[playerID].statistics.all.battles) * 100;
-
-		// player info
-		$scope.battles = dataFromApi.data[playerID].statistics.all.battles;
-		$scope.survivalRatio = (dataFromApi.data[playerID].statistics.all.survived_battles / dataFromApi.data[playerID].statistics.all.battles) * 100;
-
-		// avg stats
-		$scope.avgDmg = dataFromApi.data[playerID].statistics.all.damage_dealt / $scope.battles;
-		$scope.avgFrag = dataFromApi.data[playerID].statistics.all.frags / $scope.battles;
-		$scope.avgSpot = dataFromApi.data[playerID].statistics.all.spotted / $scope.battles;
-		$scope.avgDef = dataFromApi.data[playerID].statistics.all.dropped_capture_points / $scope.battles;
-
-		// account info
-		$scope.accountCreated = dataFromApi.data[playerID].created_at * 1000;
-		$scope.accountLastBattle = dataFromApi.data[playerID].last_battle_time * 1000;
-		$scope.accountLogout = dataFromApi.data[playerID].logout_at * 1000;
-	}
 
 });
