@@ -1,0 +1,11 @@
+{
+  "default_region": "eu",
+  "app_id": {
+    "eu": "9bd08e6ff7ffc96322e85e13cbd863c5",
+    "com": "16924c431c705523aae25b6f638c54dd"
+  },
+  "player": {
+    "name": "sampleName",
+    "id": "sampleID"
+  }
+}

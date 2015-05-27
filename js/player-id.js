@@ -1,39 +1,31 @@
 angular.module('myApp')
 
 // get player ID
-.factory('playerID', ['apiCalls', function (apiCalls) {
+.factory('playerIDService', ['apiCalls', '$q', function (apiCalls, $q) {
 
-    console.log("- service 'playerID' loaded");
+    console.log("- service 'playerIDService' loaded");
 
     // TO DO: load URL from config file
-    var urlPlayerID = "https://api.worldoftanks.eu/wot/account/list/?application_id=9bd08e6ff7ffc96322e85e13cbd863c5&search=";
-
-    var playerIDresponse;
+    var urlPlayerID = "https://api.worldoftanks.eu/wot/account/list/?application_id=9bd08e6ff7ffc96322e85e13cbd863c5&type=exact&search=";
 
     return {
         getPlayerID: function (playerName) {
-            console.log("called getPlayerID");
+            var deferred = $q.defer();
 
             apiCalls.getData(urlPlayerID + playerName)
                 .success(function (response) {
-                    var playerBaseInfo = response;
-
-                    if (playerBaseInfo.count != "0") {
-                        // more than 1 player is matching searched text - using exact match
-                        // nice to have: let user to manualy select nickname from list
-                        playerIDresponse = response.data[0].account_id;
-                        console.debug(playerIDresponse);
+                    if(response.status != "error") {
+                        deferred.resolve(response.data[0].account_id);
                     }
                     else {
-                        console.debug("No player found.");
+                        deferred.resolve("Can find any player with this name. Try again.");
                     }
                 })
-                .error(function () {
-                    // something
-                    console.error("Ooooops. Something went wrong.");
+                .error(function (error) {
+                    deferred.reject(error);
                 });
 
-            return playerIDresponse;
-            }
+            return deferred.promise;
+        }
     }
 }]);

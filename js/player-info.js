@@ -1,7 +1,7 @@
 angular.module('myApp')
 
 // get player Info
-    .factory('playerInfo', ['apiCalls', function (apiCalls) {
+    .factory('playerInfoService', ['apiCalls', function (apiCalls) {
 
         console.log("- service 'playerInfo' loaded");
 

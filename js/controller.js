@@ -1,6 +1,6 @@
 angular.module('myApp')
 
-.controller('myCtrl', function ($scope, $q, $window, apiCalls, playerID, playerInfo, tankInfo, tankStats, expectedTankStats, wn8Factory, searchJSON) {
+.controller('myCtrl', function ($scope, $q, $window, projectService, apiCalls, playerIDService, playerInfoService, tankInfo, tankStats, expectedTankStats, wn8Factory, searchJSON) {
 
 
 	// Default region
@@ -29,19 +29,31 @@ angular.module('myApp')
 	var urlExpextedTankValues = "json/expected_tank_values_20.json"; // define where is your JSON stored localy
 
 
-  	// -----------------------------------------------------------------------------------------------------------------
-	// Input: player name --> get player ID and use it for next API call
-	var playerID;
+	// -----------------------------------------------------------------------------------------------------------------
+	// project config
+	$scope.appID = projectService.loadConfig('json/config.json');
+		console.debug($scope.appID);
+//		$scope.appID = response.data[0];
 
+
+
+  	// -----------------------------------------------------------------------------------------------------------------
+	// get player ID and use it for next API call
 	$scope.getPlayerID = function(playerName) {
-		playerID = playerID.getPlayerID(playerName);
-		console.debug(playerID);
+
+		playerIDService.getPlayerID(playerName).then(function(data) {
+			// promise resolved
+			$scope.playerID = data;
+		}, function(error) {
+			// promise rejected
+			console.error(error);
+		});
 	}
 
 
   	// -----------------------------------------------------------------------------------------------------------------
-	// called after recieving player ID --> get player info
-	$scope.getPlayerInfo = function () {
+	// get player info for requested player ID
+	var getPlayerInfo = function () {
 		apiCalls.getData($scope.urlPlayerInfo + playerID)
 			.success(function (response) {
 				return $scope.Calc(response, playerID, "player");
@@ -81,38 +93,7 @@ angular.module('myApp')
   	}
 
 
-  	// -----------------------------------------------------------------------------------------------------------------
-  	// Searching in JSON
 
-  	// testing - sample JSON data
-  	var sampleJSON = 	{"data":[
-  									{ "IDNum" : 1, "expFrag" : 1, "expDmg" : 1 },
-  									{ "IDNum" : 365, "expFrag" : 2222, "expDmg" : 2333 },
-  									{ "IDNum" : 16641, "expFrag" : 3.44, "expDmg" : 2.1 },
-  									{ "IDNum" : 88, "expFrag" : 654, "expDmg" : 8283 }
-  								]
-  						};
-
-  	var newData = null;
-  	var sampleSource = sampleJSON.data;
-  	
-  	$scope.newData = searchJSON.findObj(sampleSource,'IDNum','16641');
-
-  	// for testing
-  	$scope.callSearch = function () {
-  		console.log("loaded 'callSearch'");
-  		
-  		if (newData == null)
-  		newData = searchJSON.findObj(sampleSource,'IDNum','16641')
-  		.then(function(searchResponse) {
-  			console.debug("callSearch - newData: " + searchResponse)
-  		})
-  		else {
-  			console.error("callSearch failed")
-  		}
-		
-  		return newData
-  	}
 
 
   	// -----------------------------------------------------------------------------------------------------------------
