@@ -31,8 +31,17 @@ angular.module('myApp')
 
 	// -----------------------------------------------------------------------------------------------------------------
 	// project config
-	$scope.appID = projectService.loadConfig('json/config.json');
-		console.debug($scope.appID);
+
+	var loadConfig = function() {
+		var promise = projectService.loadConfig('json/config.json');
+		promise.then(function(response) {
+			$scope.appID = response.app_id;
+			console.debug($scope.appID);
+		});
+	};
+
+	loadConfig();
+
 //		$scope.appID = response.data[0];
 
 

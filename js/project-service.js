@@ -15,13 +15,14 @@ angular.module('myApp')
                     success(function (data) {
                         // this callback will be called asynchronously
                         // when the response is available
-                        console.error(data);
+                        console.log(data);
                         deferred.resolve(data);
                     }).
                     error(function (data) {
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                         console.error("ooops");
+                        deferred.reject(data);
                     });
 
                 return deferred.promise;
