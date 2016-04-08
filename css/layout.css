@@ -19,6 +19,9 @@ h2 {
 hr {
 	clear: both;
 }
+a {
+	color: yellow;
+}
 .databox {
 	float: left;
 	padding: 15px;

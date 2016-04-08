@@ -1,4 +1,6 @@
-angular.module('myApp')
+'use strict';
+
+angular.module('wotStats')
 
 // WN8 calculation
 .factory('wn8Factory', function ($window) {

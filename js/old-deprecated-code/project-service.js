@@ -1,4 +1,6 @@
-angular.module('myApp')
+'use strict';
+
+angular.module('wotStats')
 
 // service for reading and storing data in config JSON file
     .factory('projectService', ['$http', '$q', function ($http, $q) {

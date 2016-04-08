@@ -1,4 +1,6 @@
-angular.module('myApp')
+'use strict';
+
+angular.module('wotStats')
 
 // load tank info from Wiki (Tankopedia)
 .factory('tankInfo', ['apiCalls', function (apiCalls) {

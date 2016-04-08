@@ -1,4 +1,6 @@
-angular.module('myApp')
+'use strict';
+
+angular.module('wotStats')
 
 // API backend
 .factory('tankStats', ['apiCalls', function (apiCalls) {

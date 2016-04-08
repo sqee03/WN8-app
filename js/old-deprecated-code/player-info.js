@@ -1,4 +1,6 @@
-angular.module('myApp')
+'use strict';
+
+angular.module('wotStats')
 
 // get player Info
     .factory('playerInfoService', ['apiCalls', function (apiCalls) {

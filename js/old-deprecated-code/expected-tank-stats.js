@@ -1,4 +1,6 @@
-angular.module('myApp')
+'use strict';
+
+angular.module('wotStats')
 
 // get expected tank stats(values)
     .factory('expectedTankStats', ['apiCalls', function (apiCalls) {

@@ -1,13 +1,13 @@
-var app = angular.module('myApp');
+'use strict';
+
+angular.module('wotStats')
 
 // WN8 calculation
-app.factory('searchJSON', function () {
+.factory('searchJSON', function () {
 
 	var searchJSON = { working : "no" };
 
 	console.log("- service 'searchJSON' loaded");
-
-	
 
 
 	searchJSON.findObj = function(searchSource, searchKey, searchValue) {
