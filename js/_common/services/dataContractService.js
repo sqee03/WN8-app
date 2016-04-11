@@ -3,7 +3,7 @@
 angular.module('wotStats')
 
 .factory('dataContractService',
-    function($http, configService) {
+    function($http, $q, configService) {
 
         console.info("- service 'dataContractService' loaded");
 
@@ -33,11 +33,17 @@ angular.module('wotStats')
 
         // GET data contract
         function getDataContract() {
+            // var d = $q.defer();
+            // d.resolve(dataContract);
+            // return d.promise;
             return dataContract;
         };
 
         return {
             getDataContract: getDataContract,
-            setDataContract: setDataContract
+            setDataContract: setDataContract,
+            playerSearch: function() {
+                return dataContract.account.search
+            }
         };
 });

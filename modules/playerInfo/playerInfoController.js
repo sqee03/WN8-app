@@ -10,6 +10,9 @@ angular.module('wotStats')
         // Get player ID
         $scope.playerID = null;
         $scope.getPlayerID = function() {
-            $scope.playerID = playerIDService.getPlayerID();
+            playerIDService.getPlayerID().then(function(resp) {
+                $scope.playerID = resp;
+                console.log('playerID: ', $scope.playerID);
+            });
         };
 });
