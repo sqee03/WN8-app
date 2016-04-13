@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('wotStats', [
-        'ui.router'
+        'ui.router',
+        'angular-loading-bar'
     ])
 
     .config(
@@ -14,18 +15,19 @@ angular.module('wotStats', [
                     abstract: true,
                     url: '',
                     template: '<ui-view/>',
-                    //controller: 'homeCtrl',
-                    //templateUrl: 'views/home.html',
                     resolve: {
                         config: function (configService) {
-                            console.log('1) about to load config.json');
                             return configService.setConfig();
                         },
                         dataContract: function (dataContractService) {
-                            console.log('1) about to setDataContract');
                             dataContractService.setDataContract();
                         }
                     }
+                })
+                // Starting page
+                .state('app.home', {
+                    url: '/home',
+                    templateUrl: 'views/home.html'
                 })
                 // Player info
                 .state('app.player', {
@@ -34,5 +36,5 @@ angular.module('wotStats', [
                     templateUrl: 'modules/playerInfo/playerInfo.html'
                 })
                 // Default redirect
-                $urlRouterProvider.otherwise("/default_redirect");
+                $urlRouterProvider.otherwise("/home");
     });

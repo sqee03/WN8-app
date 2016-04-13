@@ -2,35 +2,54 @@
 
 angular.module('wotStats')
 
-.factory('playerIDService',
+.factory('playerService',
     function (apiCalls, dataContractService, configService, $q) {
 
-        console.info("- service 'playerIDService' loaded");
+        // console.info("- service 'playerIDService' loaded");
 
-        // Get default player
-        function getDefaultPlayer() {
-            return configService.getConfig().player.name;
-        }
+        /**
+         * Get player ID
+         */
+        function getPlayerID(playerName) {
+            // If there is no playerName param sent, use default one from config file
+            if (!playerName) {
+                playerName = getDefaultPlayer();
+            }
 
-        function getPlayerID() {
-            // var d = $q.defer();
-            // console.log('trying to get URL: ', dataContractService.playerSearch());
+            var d = $q.defer();
 
-            // apiCalls.getData('https://api.worldoftanks.eu/wot/account/list/?application_id=9bd08e6ff7ffc96322e85e13cbd863c5&search=sqee03').then(function(resp) {
-            //     console.log('getPlayerID returning: ', resp.data[0].account_id);
-            //     d.resolve(resp.data[0].account_id);
-            // });
-
-            // return d.promise;
-            return apiCalls.getData('https://api.worldoftanks.eu/wot/account/list/?application_id=9bd08e6ff7ffc96322e85e13cbd863c5&search=sqee03').then(function(resp) {
-                console.log('getPlayerID returning: ', resp.data[0].account_id);
-                return resp.data[0].account_id;
+            apiCalls.getData(dataContractService.getDataContract().account.search + playerName).then(function(resp) {
+                d.resolve(resp.data[0].account_id);
             });
 
-            //console.log('url: ', dataContractService.getDataContract().then(function(url) { url.account.search }));
+            return d.promise
+        };
+
+        /**
+         * Get default player name(from config)
+         */
+        function getDefaultPlayer() {
+            return configService.getConfig().player.name;
+        };
+
+        /**
+         * Get player rating
+         */
+        function getPlayerRating(playerID) {
+            var d = $q.defer();
+
+            console.log('fetching rating for ID: ', playerID);
+
+            apiCalls.getData(dataContractService.getDataContract().account.info + playerID).then(function(resp) {
+                console.log('rating: ', resp.data[playerID].global_rating);
+                d.resolve(resp.data[playerID].global_rating);
+            });
+
+            return d.promise
         };
 
         return {
-            getPlayerID: getPlayerID
+            getPlayerID: getPlayerID,
+            getPlayerRating: getPlayerRating
         }
 });

@@ -1,6 +1,7 @@
-<input type="text" placeholder="Player name" ng-model="playerName" ng-keydown="$event.which === 13 && getPlayerID(playerName)" />
-<input type="button" value="Get player info" ng-click="getPlayerID(playerName)" />
+<namepicker></namepicker>
 
-<hr/>
+<hr />
 
-account_id: {{playerID}}
+Name: {{playerName}}<br />
+Account_id: {{playerID}}<br />
+Personal rating: {{playerRating}}

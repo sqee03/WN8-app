@@ -6,7 +6,7 @@ angular.module('wotStats')
 .factory('apiCalls',
     function ($http, $q, configService) {
 
-    	console.info("- service 'apiFactory' loaded");
+    	// console.info("- service 'apiFactory' loaded");
 
         // Get data from API
         function getData(url) {
@@ -17,7 +17,7 @@ angular.module('wotStats')
                     url: url
                 })
                 .success(function (data) {
-                    console.info('Resolved API promise: ', data);
+                    // console.info('Resolved API promise: ', data);
                     d.resolve(data);
                 })
                 .error(function (error) {

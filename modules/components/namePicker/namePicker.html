@@ -1,0 +1,2 @@
+<input type="text" placeholder="Player name" ng-model="playerName" ng-keydown="$event.which === 13 && getPlayerInfo(playerName)" />
+<input type="button" value="Get player info" ng-click="getPlayerInfo(playerName)" />

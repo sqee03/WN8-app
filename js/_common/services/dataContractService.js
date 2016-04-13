@@ -5,13 +5,11 @@ angular.module('wotStats')
 .factory('dataContractService',
     function($http, $q, configService) {
 
-        console.info("- service 'dataContractService' loaded");
+        // console.info("- service 'dataContractService' loaded");
 
         // List of API Urls
         var dataContract = {
-            'account': {
-                'info': 'xxx'
-            }
+            'account': {}
         };
 
         // Get API key
@@ -22,10 +20,16 @@ angular.module('wotStats')
         // SET data contract
         function setDataContract() {
             $http.get('json/wargamingDataContract.json').success(function(json) {
-                console.info("key: ", getAPIkey());
-                dataContract['account']['search'] = json.api.uri + '/' + json.account.base_uri + '/' + json.account.list + '/?' + json.api.key + '=' + getAPIkey() + '&' + json.api.search + '=';
-                //dataContract['account']['list'] = json.api.uri + '/' + json.account.base_uri + '/' + json.account.list;
-                console.log('2) setting dataContractService: ', dataContract);
+                // Base URL parts
+                var url = json.api.uri + '/' + json.account.base_uri + '/';
+                var apikey = json.api.key + '=' + getAPIkey();
+                var account_id = json.api.account + '=';
+                var search = json.api.search + '=';
+
+                // Account search
+                dataContract['account']['search'] = url + json.account.list + '/?' + apikey + '&' + search;
+                // Account personal info
+                dataContract['account']['info'] = url + json.account.personal_data + '/?' + apikey + '&' + account_id;
             }).error(function (error) {
                 console.error('Cannot load data contract.', error);
             });
@@ -33,9 +37,6 @@ angular.module('wotStats')
 
         // GET data contract
         function getDataContract() {
-            // var d = $q.defer();
-            // d.resolve(dataContract);
-            // return d.promise;
             return dataContract;
         };
 
@@ -44,6 +45,9 @@ angular.module('wotStats')
             setDataContract: setDataContract,
             playerSearch: function() {
                 return dataContract.account.search
+            },
+            playerInfo: function() {
+                return dataContract.account.info
             }
         };
 });
