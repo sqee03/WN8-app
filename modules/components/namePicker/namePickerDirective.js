@@ -9,13 +9,13 @@ angular.module('wotStats')
 
         return {
             restrict: 'E',
-            // replace: true,
-            // templateUrl: 'modules/namePicker/namePicker.html',
-            template: '<div>TEST</div>'
-            // controller: 'namePickerCtrl',
-            // link: function (scope) {
-            //     // something
-            //     console.log('namePicker Hello')
-            // }
+            replace: true,
+            template: '<div>TEST</div>',
+            // templateUrl: 'modules/components/namePicker/namePicker.html',
+            controller: 'namePickerCtrl',
+            link: function (scope) {
+                // something
+                console.log('namePicker Hello')
+            }
         };
 });
