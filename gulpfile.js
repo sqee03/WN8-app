@@ -4,4 +4,4 @@ var gulp = require('gulp'),
 requireDir('./gulp/tasks', {recurse: true});
 
 // Default build for development
-gulp.task('default', ['vendor', 'less', 'build']);
+gulp.task('default', ['clean', 'build']);

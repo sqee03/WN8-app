@@ -1,0 +1,13 @@
+{
+  "name": "wn8-app",
+  "description": "WOT WN8 App",
+  "authors": [
+    "Sqee <sqee@seznam.cz>"
+  ],
+  "dependencies": {
+    "angular": "^1.5.4",
+    "angular-loading-bar": "~0.9.0",
+    "angular-ui-router": "^0.2.18"
+  },
+  "devDependencies": {}
+}

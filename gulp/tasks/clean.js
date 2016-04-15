@@ -4,5 +4,5 @@ var clean = require('gulp-clean');
 
 gulp.task('clean', function() {
     return gulp.src(config.build.main, {read: false})
-    .pipe(clean());
+        .pipe(clean());
 });

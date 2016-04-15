@@ -9,9 +9,11 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
-# NPM packages #
-######################
+# NPM and Bower packages #
+##########################
 node_modules/
+bower_components/
 
-# Build Systems #
-######################
+# Build files #
+###############
+dist

@@ -1,0 +1,27 @@
+{
+  "name": "wn8-app",
+  "version": "1.0.0",
+  "description": "WOT WN8 App",
+  "author": "Sqee <sqee@seznam.cz>",
+  "dependencies": {},
+  "devDependencies": {
+    "event-stream": "^3.3.2",
+    "gulp": "*",
+    "gulp-angular-filesort": "^1.1.1",
+    "gulp-clean": "*",
+    "gulp-dir": "*",
+    "gulp-inject": "*",
+    "gulp-order": "^1.1.1",
+    "gulp-rename": "*",
+    "gulp-sass": "*",
+    "main-bower-files": "*"
+  },
+  "scripts": {
+    "postinstall": "bower install --force-latest",
+    "prestart": "npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sqee03/WN8-app.git"
+  }
+}

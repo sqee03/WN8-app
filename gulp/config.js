@@ -13,6 +13,8 @@ module.exports = {
     },
     build: {
         main: 'dist',
+        vendor_js: 'dist/bower_components/*.js',
+        vendor_css: 'dist/bower_components/*.css',
         js: 'dist/js/*.js',
         css: 'dist/css/*.css'
     }
