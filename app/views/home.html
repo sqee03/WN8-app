@@ -1,6 +1,13 @@
-<a ui-sref="app.player">Player Info</a>
+<div>
+  <input type="text" placeholder="Player name" ng-model="playerName" ng-keydown="$event.which === 13 && getPlayerID(playerName)" />
 
-<hr />
+  <hr/>
+  Region: {{region}}<br/>
+  PlayerID: {{playerID}}<br/>
+  <hr/>
+
+  </div>
+</div>
 
 <pre>WOT licencing topic: <a href="http://forum.worldoftanks.eu/index.php?/topic/433192-play-developer-account-suspended-because-i-built-an-world-of-tanks-related-app/">http://forum.worldoftanks.eu/index.php?/topic/433192-play-developer-account-suspended-because-i-built-an-world-of-tanks-related-app/</a></pre>
 <pre>WG Developer reply: <a href="http://forum.worldoftanks.eu/index.php?/topic/433192-play-developer-account-suspended-because-i-built-an-world-of-tanks-related-app/page__pid__9174554#entry9174554">http://forum.worldoftanks.eu/index.php?/topic/433192-play-developer-account-suspended-because-i-built-an-world-of-tanks-related-app/page__pid__9174554#entry9174554</a></pre>

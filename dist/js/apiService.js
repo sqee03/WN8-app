@@ -6,10 +6,11 @@ angular.module('wotStats')
 .factory('apiCalls',
     function ($http, $q, configService) {
 
-    	// console.info("- service 'apiFactory' loaded");
+    	console.info("- service 'apiFactory' loaded");
 
         // Get data from API
         function getData(url) {
+            console.log(url);
             var d = $q.defer();
 
             $http({
@@ -17,7 +18,7 @@ angular.module('wotStats')
                     url: url
                 })
                 .success(function (data) {
-                    // console.info('Resolved API promise: ', data);
+                    console.info('Resolved API promise: ', data);
                     d.resolve(data);
                 })
                 .error(function (error) {
@@ -29,7 +30,9 @@ angular.module('wotStats')
         };
 
     	return {
-    		getData: getData
+    		getData: function(url) {
+                getData(url)
+            }
     	};
 
 });

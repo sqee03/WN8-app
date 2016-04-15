@@ -1,12 +1,19 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+.idea
+Icon?
+ehthumbs.db
+Thumbs.db
 
-.idea/.name
+# NPM and Bower packages #
+##########################
+node_modules/
+bower_components/
 
-.idea/misc.xml
-
-.idea/modules.xml
-
-.idea/private.iml
-
-.idea/vcs.xml
-
-.idea/workspace.xml
+# Build files #
+###############
+dist
