@@ -16,6 +16,7 @@ module.exports = {
         vendor_js: 'dist/bower_components/*.js',
         vendor_css: 'dist/bower_components/*.css',
         js: 'dist/js/*.js',
+        json: 'dist/jsson/*.json',
         css: 'dist/css/*.css'
     }
 };
