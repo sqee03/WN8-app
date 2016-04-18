@@ -5,7 +5,7 @@ module.exports = {
             src: 'app/**/*.js'
         },
         tpl: {
-            main: 'app/app.html',
+            main: 'app/index.html',
             src: 'app/**/*.html'
         },
         sass: 'app/**/*.scss',
@@ -17,6 +17,7 @@ module.exports = {
         vendor_css: 'dist/bower_components/*.css',
         js: 'dist/js/*.js',
         json: 'dist/jsson/*.json',
-        css: 'dist/css/*.css'
+        css: 'dist/css/*.css',
+        html: 'dist/**/*.html'
     }
 };

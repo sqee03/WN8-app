@@ -3,11 +3,11 @@ var gulp = require('gulp');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 
-gulp.task('sass', ['clean'], function() {
+gulp.task('sass', function() {
     return gulp.src(config.source.sass)
         .pipe(sass().on('error', sass.logError))
         .pipe(rename({
-            dirname: 'css',
+            dirname: 'css'
         }))
         .pipe(gulp.dest('dist'))
 });

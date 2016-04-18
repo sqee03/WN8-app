@@ -5,6 +5,7 @@
   "author": "Sqee <sqee@seznam.cz>",
   "dependencies": {},
   "devDependencies": {
+    "browser-sync": "^2.12.3",
     "event-stream": "^3.3.2",
     "gulp": "*",
     "gulp-angular-filesort": "^1.1.1",

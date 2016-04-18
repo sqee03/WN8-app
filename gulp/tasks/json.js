@@ -2,7 +2,7 @@ var config = require('../config');
 var gulp = require('gulp');
 var rename = require('gulp-rename');
 
-gulp.task('json', ['clean'], function() {
+gulp.task('json', function() {
     return gulp.src(config.source.json)
         .pipe(rename({
             dirname: 'json',

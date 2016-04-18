@@ -19,6 +19,7 @@ gulp.task('inject', ['build'], function () {
     var sources_css = gulp.src(config.build.css, {read: false});
 
   return target
+    .pipe(gulp.dest('dist')) // write first to get relative path for inject
     .pipe(inject(es.merge(
         vendor_js,
         vendor_css
