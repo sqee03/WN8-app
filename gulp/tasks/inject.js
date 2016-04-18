@@ -13,9 +13,10 @@ gulp.task('inject', ['build'], function () {
                         '*.js'
                     ]))
     var vendor_css = gulp.src(config.build.vendor_css, {read: false});
+    var sources_json = gulp.src(config.build.json, {read: false});
     var sources_js = gulp.src(config.build.js)
                     .pipe(angularFilesort());
-    var sources_css = gulp.src(config.build.css);
+    var sources_css = gulp.src(config.build.css, {read: false});
 
   return target
     .pipe(inject(es.merge(
@@ -24,6 +25,7 @@ gulp.task('inject', ['build'], function () {
     ), {relative: true, name: 'bower'}))
     .pipe(inject(es.merge(
         sources_js,
+        sources_json,
         sources_css
     ), {relative: true}))
     .pipe(gulp.dest('dist'));
