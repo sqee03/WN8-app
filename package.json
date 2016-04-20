@@ -6,16 +6,17 @@
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.12.3",
+    "del": "^2.2.0",
     "event-stream": "^3.3.2",
     "gulp": "*",
     "gulp-angular-filesort": "^1.1.1",
-    "gulp-clean": "*",
     "gulp-dir": "*",
     "gulp-inject": "*",
     "gulp-order": "^1.1.1",
     "gulp-rename": "*",
     "gulp-sass": "*",
-    "main-bower-files": "*"
+    "main-bower-files": "*",
+    "run-sequence": "^1.1.5"
   },
   "scripts": {
     "postinstall": "bower install --force-latest",

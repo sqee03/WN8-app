@@ -5,7 +5,7 @@ var config = require('../config'),
     inject = require('gulp-inject');
     es = require('event-stream');
 
-gulp.task('inject', ['build'], function () {
+gulp.task('inject', function () {
     var target = gulp.src(config.source.tpl.main);
     var vendor_js = gulp.src(config.build.vendor_js)
                     .pipe(order([
