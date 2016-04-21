@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('wotStats', [
-        'ui.router'
+        'ui.router',
+        'templateCache'
     ])
 
     .config(
@@ -27,6 +28,11 @@ angular.module('wotStats', [
                         }
                     }
                 })
+                // Starting page
+                .state('app.home', {
+                    url: '/',
+                    templateUrl: 'views/home.html'
+                })
                 // Player info
                 .state('app.player', {
                     url: '/player',
@@ -34,5 +40,5 @@ angular.module('wotStats', [
                     templateUrl: 'modules/playerInfo/playerInfo.html'
                 })
                 // Default redirect
-                $urlRouterProvider.otherwise("/default_redirect");
+                $urlRouterProvider.otherwise("/");
     });

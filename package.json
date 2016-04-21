@@ -10,6 +10,7 @@
     "event-stream": "^3.3.2",
     "gulp": "*",
     "gulp-angular-filesort": "^1.1.1",
+    "gulp-angular-templatecache": "^1.8.0",
     "gulp-dir": "*",
     "gulp-inject": "*",
     "gulp-order": "^1.1.1",

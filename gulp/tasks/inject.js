@@ -17,6 +17,7 @@ gulp.task('inject', function () {
     var sources_js = gulp.src(config.build.js)
                     .pipe(angularFilesort());
     var sources_css = gulp.src(config.build.css, {read: false});
+    var templates = gulp.src(config.build.tpl, {read: false});
 
   return target
     .pipe(gulp.dest('dist')) // write first to get relative path for inject
@@ -26,6 +27,7 @@ gulp.task('inject', function () {
     ), {relative: true, name: 'bower'}))
     .pipe(inject(es.merge(
         sources_js,
+        templates,
         sources_json,
         sources_css
     ), {relative: true}))

@@ -6,9 +6,11 @@ var runSequence = require('run-sequence');
 // Then run webserver and start syncing/watching files
 gulp.task('dev', function(callback) {
     runSequence('clean',
-                ['js', 'json','sass','vendor'],
+                ['js', 'json','sass', 'html2js', 'vendor'],
                 'inject',
                 'sync',
                 'watch',
                 callback);
 });
+
+gulp.task('default', ['dev']);
