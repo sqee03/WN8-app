@@ -2,7 +2,8 @@
 
 angular.module('wotStats', [
         'ui.router',
-        'templateCache'
+        'templateCache',
+        'playerInfo'
     ])
 
     .config(

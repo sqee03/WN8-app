@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('wotStats')
+angular.module('playerInfo', [])
 
 .controller('playerInfoCtrl',
-    function ($scope, playerIDService) {
+    function ($scope, playerIDService, playerInfoService) {
 
         console.info("- controller 'playerInfoCtrl' loaded");
 
@@ -14,6 +14,14 @@ angular.module('wotStats')
         $scope.getPlayerID = function(name) {
             playerIDService.getPlayerID(name).then(function(playerID) {
                 $scope.playerID = playerID;
+
+                getPlayerInfo(playerID);
+            });
+        };
+
+        function getPlayerInfo(playerID) {
+            playerInfoService.getPlayerInfo(playerID).then(function(playerInfo) {
+                $scope.playerInfo = playerInfo;
             });
         };
 });

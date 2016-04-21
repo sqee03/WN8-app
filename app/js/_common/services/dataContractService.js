@@ -29,7 +29,8 @@ angular.module('wotStats')
                 // Base URL parts
                 var url = json.api.uri + '/' + json.account.base_uri + '/';
                 var apikey = json.api.key + '=' + getAPIkey();
-                var account_id = json.api.account + '=';
+                var account_id = json.account.account_id + '=';
+                var personal_data = json.account.personal_data + '=';
                 var search = json.api.search.key + '=';
                 var searchType = json.api.search.type + '=' + getSearchType();
 

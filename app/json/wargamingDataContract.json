@@ -9,6 +9,7 @@
   },
   "account": {
     "base_uri": "account",
+    "account_id": "account_id",
     "personal_data": "info",
     "list": "list"
   }
