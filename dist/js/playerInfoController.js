@@ -7,9 +7,13 @@ angular.module('wotStats')
 
         console.info("- controller 'playerInfoCtrl' loaded");
 
-        // Get player ID
+        // Variables
         $scope.playerID = null;
-        $scope.getPlayerID = function() {
-            $scope.playerID = playerIDService.getPlayerID();
+
+        // Callable function for view
+        $scope.getPlayerID = function(name) {
+            playerIDService.getPlayerID(name).then(function(playerID) {
+                $scope.playerID = playerID;
+            });
         };
 });

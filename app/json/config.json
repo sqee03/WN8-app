@@ -6,6 +6,7 @@
   },
   "player": {
     "name": "sqee03",
-    "id": "sampleID"
+    "id": "sampleID",
+    "searchType": "exact"
   }
 }

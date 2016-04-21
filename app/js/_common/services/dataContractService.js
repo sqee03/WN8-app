@@ -9,9 +9,7 @@ angular.module('wotStats')
 
         // List of API Urls
         var dataContract = {
-            'account': {
-                'info': 'xxx'
-            }
+            'account': {}
         };
 
         // Get API key
@@ -19,12 +17,27 @@ angular.module('wotStats')
             return configService.getConfig().app_id.eu;
         };
 
+        // Get type of search from config
+        // 'Exact' - exact match, 'Startswidth' - search by initial characters
+        function getSearchType() {
+            return configService.getConfig().player.searchType;
+        };
+
         // SET data contract
         function setDataContract() {
             $http.get('json/wargamingDataContract.json').success(function(json) {
-                console.info("key: ", getAPIkey());
-                dataContract['account']['search'] = json.api.uri + '/' + json.account.base_uri + '/' + json.account.list + '/?' + json.api.key + '=' + getAPIkey() + '&' + json.api.search + '=';
-                //dataContract['account']['list'] = json.api.uri + '/' + json.account.base_uri + '/' + json.account.list;
+                // Base URL parts
+                var url = json.api.uri + '/' + json.account.base_uri + '/';
+                var apikey = json.api.key + '=' + getAPIkey();
+                var account_id = json.api.account + '=';
+                var search = json.api.search.key + '=';
+                var searchType = json.api.search.type + '=' + getSearchType();
+
+                // Account search
+                dataContract['account']['search'] = url + json.account.list + '/?' + apikey + '&' + searchType + '&' + search;
+                // Account personal info
+                dataContract['account']['info'] = url + json.account.personal_data + '/?' + apikey + '&' + account_id;
+
                 console.log('2) setting dataContractService: ', dataContract);
             }).error(function (error) {
                 console.error('Cannot load data contract.', error);

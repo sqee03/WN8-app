@@ -2,7 +2,10 @@
   "api": {
     "uri": "https://api.worldoftanks.eu/wot",
     "key": "application_id",
-    "search": "search"
+    "search": {
+      "key": "search",
+      "type": "type"
+    }
   },
   "account": {
     "base_uri": "account",

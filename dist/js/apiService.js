@@ -30,9 +30,7 @@ angular.module('wotStats')
         };
 
     	return {
-    		getData: function(url) {
-                getData(url)
-            }
+    		getData: getData
     	};
 
 });
