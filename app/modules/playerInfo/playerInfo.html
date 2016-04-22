@@ -1,9 +1,10 @@
-<input type="text" placeholder="Player name" ng-model="playerName" ng-keydown="$event.which === 13 && getPlayerID(playerName)" />
+<input type="text" placeholder="Player name" ng-model="playerName" ng-keydown="$event.which === 13 && getPlayer(playerName)" />
 
 <hr/>
 
-account_id: {{playerID}}
+account_id: {{playerID}}<br />
+personal rating: {{playerInfo.global_rating}}
 
 <hr/>
 
-player info: {{playerInfo}}
+player info: <pre>{{playerInfo | json}}</pre>

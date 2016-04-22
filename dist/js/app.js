@@ -16,8 +16,6 @@ angular.module('wotStats', [
                     abstract: true,
                     url: '',
                     template: '<ui-view/>',
-                    //controller: 'homeCtrl',
-                    //templateUrl: 'views/home.html',
                     resolve: {
                         config: function (configService) {
                             console.log('1) about to load config.json');

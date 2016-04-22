@@ -7,27 +7,40 @@ angular.module('playerInfo')
 
         console.info("- service 'playerInfoService' loaded");
 
-        // // Variables
-        // var playerID = null;
-
-        // // Get playerID ready
-        // playerIDService.getPlayerID().then(function(id) {
-        //     playerID = id;
-        // });
+        // Variables
+        var cachedInfo;
+        var cachedID;
 
         function getPlayerInfo(id) {
             var d = $q.defer();
+            console.info('equality check - old id: ' + cachedID + ' | new id: ' + id);
 
-            apiCalls.getData(dataContractService.getDataContract().account.info + id).then(function(apiData) {
-                if (apiData) {
-                    d.resolve(apiData);
+            if (id) {
+                // Check if data are already cached
+                if(!cachedInfo || (id !== cachedID)) {
+                    cachedID = id; // Chache ID
+
+                    // Fetch new data
+                    apiCalls.getData(dataContractService.getDataContract().account.info + id).then(function(apiData) {
+                        if (apiData) {
+                            cachedInfo = apiData.data[id]; // Chache response
+                            d.resolve(apiData.data[id]);
+                        }
+                        // Handle situation when there is no ID found
+                        else {
+                            console.log('no data');
+                            d.resolve('No player info found.');
+                        }
+                    });
                 }
-                // Handle situation when there is no ID found
                 else {
-                    console.log('no data');
-                    d.resolve('No player info found');
+                    console.log('returning cached playerInfo');
+                    d.resolve(cachedInfo); // Return cached data
                 }
-            })
+            }
+            else {
+                d.reject('Cannot load player info. Player ID is missing.')
+            }
 
             return d.promise;
         };

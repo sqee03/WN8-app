@@ -8,42 +8,61 @@ angular.module('playerInfo')
         console.info("- service 'playerIDService' loaded");
 
         // Variables
-        var playerID = null;
+        var cachedID = null;
+        var cachedName = null;
+
+        function fetchID(name) {
+            var d = $q.defer();
+
+            apiCalls.getData(dataContractService.getDataContract().account.search + name).then(function(apiData) {
+                // When server send error response
+                if (apiData.status === 'error') {
+                    cachedID = null;
+                    console.error('server error');
+                    d.reject('Server responded with error')
+                }
+                // Check if we have data from API
+                if (apiData.data[0]) {
+                    cachedName = name; // Cache player name
+                    cachedID = apiData.data[0].account_id; // Cache player ID
+                    d.resolve(apiData.data[0].account_id);
+                }
+                // Handle situation when there is no ID found
+                else {
+                    console.error('no such a player found');
+                    cachedName = name; // Cache player name
+                    cachedID = null; // Reset cached player ID
+                    d.reject('No player found');
+                }
+            })
+
+            return d.promise
+        }
 
         function getPlayerID(name) {
             var d = $q.defer();
 
             if (name) {
-                // Return cached ID if available
-                if(playerID) {
-                    console.log('returning cached id: ', playerID);
-                    d.resolve(playerID);
+                console.info('requesting: ', name);
+                console.info('equality check - old name: ' + cachedName + ' | new name: ' + name);
+                // Fetch new data only when name has been updated
+                if ((name !== cachedName) || !cachedName) {
+                    d.resolve(fetchID(name));
                 }
-
-                apiCalls.getData(dataContractService.getDataContract().account.search + name).then(function(apiData) {
-                    // When server send error response
-                    if (apiData.status === 'error') {
-                        playerID = null;
-                        console.error('server error');
-                        d.reject('Server responded with error')
+                else {
+                    if (cachedID) {
+                        console.log('Name did not changed - returning cached id: ', cachedID);
+                        d.resolve(cachedID);
                     }
-                    // Check if we have data from API
-                    if (apiData.data[0]) {
-                        playerID = apiData.data[0].account_id;
-                        d.resolve(apiData.data[0].account_id);
-                    }
-                    // Handle situation when there is no ID found
                     else {
-                        console.log('no match');
-                        playerID = null;
-                        d.resolve('No player found');
+                        console.log('ID not cached, fetching new one');
+                        d.resolve(fetchID(name));
                     }
-                })
+                }
             }
             // When player name is not defined
             else {
-                playerID = null;
-                d.resolve('Please define player name');
+                d.reject('Please define player name');
             }
 
             return d.promise;
