@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('playerInfo', [])
+angular.module('playerInfo')
 
 .controller('playerInfoCtrl',
     function ($scope, playerIDService, playerInfoService) {

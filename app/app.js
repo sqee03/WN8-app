@@ -1,8 +1,13 @@
 'use strict';
 
 angular.module('wotStats', [
+        // Libraries
         'ui.router',
+
+        // Template cache
         'templateCache',
+
+        // App
         'playerInfo'
     ])
 
