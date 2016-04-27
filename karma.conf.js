@@ -2,6 +2,7 @@ module.exports = function(config) {
   config.set({
     frameworks: ['jasmine'],
     browsers: ['PhantomJS'],
+    reporters: ['spec'],
 
     files: [
         // Bower dependencies are loaded from DIST instead of Bower folder
