@@ -1,8 +1,15 @@
 'use strict';
 
 angular.module('wotStats', [
+        // Libraries
         'ui.router',
+        'ngAnimate',
+        'angular-growl',
+
+        // Template cache
         'templateCache',
+
+        // App
         'playerInfo'
     ])
 

@@ -1,3 +1,5 @@
+@import "bootstrap";
+
 /*
 * ------------------------------------
 *    Page layout
@@ -20,7 +22,7 @@ hr {
 	clear: both;
 }
 a {
-	color: yellow;
+	color: green;
 }
 .databox {
 	float: left;
@@ -38,8 +40,5 @@ input {
 	font-size: 15px;
 	border: 1px solid white;
 	transition: 0.5s linear all;
-}
-.ng-invalid {
-	background-color: red;
-	color: white;
+	color: #333;
 }

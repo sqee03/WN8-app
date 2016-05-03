@@ -8,7 +8,10 @@ module.exports = {
             main: 'app/index.html',
             src: 'app/**/*.html'
         },
-        sass: 'app/**/*.scss',
+        sass: {
+            bootstrap: 'bower_components/bootstrap-sass/assets/stylesheets',
+            src: 'app/**/*.scss'
+        },
         json: 'app/**/*.json'
     },
     build: {

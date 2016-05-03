@@ -4,5 +4,5 @@ var bowerFiles = require('main-bower-files');
 
 gulp.task('vendor', function () {
     return gulp.src(bowerFiles())
-            .pipe(gulp.dest('dist/bower_components'));
+                .pipe(gulp.dest('dist/bower_components'))
 });

@@ -3,6 +3,8 @@
 angular.module('wotStats', [
         // Libraries
         'ui.router',
+        'ngAnimate',
+        'angular-growl',
 
         // Template cache
         'templateCache',

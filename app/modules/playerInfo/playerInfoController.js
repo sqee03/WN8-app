@@ -3,9 +3,27 @@
 angular.module('playerInfo')
 
 .controller('playerInfoCtrl',
-    function ($scope, playerIDService, playerInfoService) {
+    function ($scope, playerIDService, playerInfoService, growl) {
 
         console.info("- controller 'playerInfoCtrl' loaded");
+
+        // Growl notifications
+        $scope.growl = function (type) {
+            var config = {};
+            switch (type) {
+              case "success":
+                growl.success("<b>I'm</b> a success message", config);
+                break;
+              case "info":
+                growl.info("I'm an info message", config);
+                break;
+              case "warning":
+                growl.warning("I'm the warning message", config);
+                break;
+              default:
+                growl.error("Ups, error message here!", config);
+            }
+        };
 
         // Variables
         $scope.playerID = null;
