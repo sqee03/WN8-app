@@ -3,7 +3,7 @@
 angular.module('playerInfo')
 
 .factory('playerIDService',
-    function (apiCalls, dataContractService, configService, $q) {
+    function (apiCalls, dataContractService, configService, $q, growl) {
 
         console.info("- service 'playerIDService' loaded");
 
@@ -18,8 +18,8 @@ angular.module('playerInfo')
                 // When server send error response
                 if (apiData.status === 'error') {
                     cachedID = null;
-                    console.error('server error');
-                    d.reject('Server responded with error')
+                    growl.error('Server responded with error');
+                    d.reject(false)
                 }
                 // Check if we have data from API
                 if (apiData.data[0]) {
@@ -29,10 +29,10 @@ angular.module('playerInfo')
                 }
                 // Handle situation when there is no ID found
                 else {
-                    console.error('no such a player found');
                     cachedName = name; // Cache player name
                     cachedID = null; // Reset cached player ID
-                    d.reject('No player found');
+                    growl.error('No player found');
+                    d.reject(false);
                 }
             })
 
@@ -62,7 +62,8 @@ angular.module('playerInfo')
             }
             // When player name is not defined
             else {
-                d.reject('Please define player name');
+                growl.warning('Please define player name');
+                d.reject(false);
             }
 
             return d.promise;

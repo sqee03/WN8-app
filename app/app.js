@@ -4,7 +4,10 @@ angular.module('wotStats', [
         // Libraries
         'ui.router',
         'ngAnimate',
+
+        // Notifications
         'angular-growl',
+        'notifications',
 
         // Template cache
         'templateCache',

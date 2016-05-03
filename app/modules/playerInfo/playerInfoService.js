@@ -3,7 +3,7 @@
 angular.module('playerInfo')
 
 .factory('playerInfoService',
-    function (apiCalls, dataContractService, configService, playerIDService, $q) {
+    function (apiCalls, dataContractService, configService, playerIDService, $q, growl) {
 
         console.info("- service 'playerInfoService' loaded");
 
@@ -28,8 +28,8 @@ angular.module('playerInfo')
                         }
                         // Handle situation when there is no ID found
                         else {
-                            console.log('no data');
-                            d.resolve('No player info found.');
+                            growl.error('No player info found');
+                            d.reject(false);
                         }
                     });
                 }
@@ -39,7 +39,8 @@ angular.module('playerInfo')
                 }
             }
             else {
-                d.reject('Cannot load player info. Player ID is missing.')
+                growl.error('Cannot load player info. Player ID is missing');
+                d.reject(false)
             }
 
             return d.promise;
