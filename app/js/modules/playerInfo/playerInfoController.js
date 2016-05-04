@@ -3,9 +3,9 @@
 angular.module('playerInfo')
 
 .controller('playerInfoCtrl',
-    function ($scope, playerIDService, playerInfoService) {
+    function ($scope, playerIDService, playerInfoService, moment) {
 
-        console.info("- controller 'playerInfoCtrl' loaded");
+        // console.info("- controller 'playerInfoCtrl' loaded");
 
         // Variables
         $scope.playerID = null;
@@ -31,6 +31,7 @@ angular.module('playerInfo')
         function getPlayerInfo(playerID) {
             playerInfoService.getPlayerInfo(playerID).then(function(playerInfo) {
                 $scope.playerInfo = playerInfo;
+                $scope.createdAt = moment.unix(playerInfo.created_at).format('DD.MM.YYYY');
             }, function(error) {
                 $scope.playerInfo = null;
             });

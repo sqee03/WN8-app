@@ -6,5 +6,5 @@ angular.module('notifications', [])
     function (growlProvider) {
         growlProvider.globalReversedOrder(true);
         growlProvider.globalDisableCountDown(true);
-        growlProvider.globalTimeToLive({success: 3000, error: 5000, warning: 4000, info: 4000});
+        growlProvider.globalTimeToLive({success: 4000, error: 7000, warning: 5000, info: 5000});
 });

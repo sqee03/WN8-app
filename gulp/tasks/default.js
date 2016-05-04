@@ -6,7 +6,7 @@ var runSequence = require('run-sequence');
 // Then run webserver and start syncing/watching files
 gulp.task('dev', function(callback) {
     runSequence('clean',
-                ['js', 'json','sass', 'html2js', 'vendor'],
+                ['js', 'json', 'sass', 'html2js', 'images', 'vendor'],
                 'inject',
                 'sync',
                 'watch',

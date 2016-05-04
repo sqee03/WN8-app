@@ -12,7 +12,8 @@ module.exports = {
             bootstrap: 'bower_components/bootstrap-sass/assets/stylesheets',
             src: 'app/**/*.scss'
         },
-        json: 'app/**/*.json'
+        json: 'app/**/*.json',
+        images: 'app/img/*.*'
     },
     build: {
         main: 'dist',

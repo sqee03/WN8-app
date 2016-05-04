@@ -5,7 +5,7 @@ angular.module('playerInfo')
 .factory('playerInfoService',
     function (apiCalls, dataContractService, configService, playerIDService, $q, growl) {
 
-        console.info("- service 'playerInfoService' loaded");
+        // console.info("- service 'playerInfoService' loaded");
 
         // Variables
         var cachedInfo;
@@ -13,17 +13,16 @@ angular.module('playerInfo')
 
         function getPlayerInfo(id) {
             var d = $q.defer();
-            console.info('equality check - old id: ' + cachedID + ' | new id: ' + id);
 
             if (id) {
                 // Check if data are already cached
                 if(!cachedInfo || (id !== cachedID)) {
-                    cachedID = id; // Chache ID
+                    cachedID = id; // Cache ID
 
                     // Fetch new data
                     apiCalls.getData(dataContractService.getDataContract().account.info + id).then(function(apiData) {
                         if (apiData) {
-                            cachedInfo = apiData.data[id]; // Chache response
+                            cachedInfo = apiData.data[id]; // Cache response
                             d.resolve(apiData.data[id]);
                         }
                         // Handle situation when there is no ID found

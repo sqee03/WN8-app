@@ -5,7 +5,7 @@ angular.module('playerInfo')
 .factory('playerIDService',
     function (apiCalls, dataContractService, configService, $q, growl) {
 
-        console.info("- service 'playerIDService' loaded");
+        // console.info("- service 'playerIDService' loaded");
 
         // Variables
         var cachedID = null;
@@ -43,19 +43,15 @@ angular.module('playerInfo')
             var d = $q.defer();
 
             if (name) {
-                console.info('requesting: ', name);
-                console.info('equality check - old name: ' + cachedName + ' | new name: ' + name);
                 // Fetch new data only when name has been updated
                 if ((name !== cachedName) || !cachedName) {
                     d.resolve(fetchID(name));
                 }
                 else {
-                    if (cachedID) {
-                        console.log('Name did not changed - returning cached id: ', cachedID);
+                    if (cachedID) { // Return cached ID if name did not changed
                         d.resolve(cachedID);
                     }
-                    else {
-                        console.log('ID not cached, fetching new one');
+                    else { // Fetch ID because there is no cache yet
                         d.resolve(fetchID(name));
                     }
                 }

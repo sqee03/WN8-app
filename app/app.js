@@ -4,6 +4,7 @@ angular.module('wotStats', [
         // Libraries
         'ui.router',
         'ngAnimate',
+        'momentjs',
 
         // Notifications
         'angular-growl',
@@ -13,7 +14,8 @@ angular.module('wotStats', [
         'templateCache',
 
         // App
-        'playerInfo'
+        'playerInfo',
+        'personalRating'
     ])
 
     .config(
@@ -28,11 +30,9 @@ angular.module('wotStats', [
                     template: '<ui-view/>',
                     resolve: {
                         config: function (configService) {
-                            console.log('1) about to load config.json');
                             return configService.setConfig();
                         },
                         dataContract: function (dataContractService) {
-                            console.log('1) about to setDataContract');
                             dataContractService.setDataContract();
                         }
                     }
@@ -46,7 +46,7 @@ angular.module('wotStats', [
                 .state('app.player', {
                     url: '/player',
                     controller: 'playerInfoCtrl',
-                    templateUrl: 'modules/playerInfo/playerInfo.html'
+                    templateUrl: 'js/modules/playerInfo/playerInfo.html'
                 })
                 // Default redirect
                 $urlRouterProvider.otherwise("/");

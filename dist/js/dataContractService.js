@@ -3,9 +3,9 @@
 angular.module('wotStats')
 
 .factory('dataContractService',
-    function($http, configService) {
+    function($http, configService, growl) {
 
-        console.info("- service 'dataContractService' loaded");
+        // console.info("- service 'dataContractService' loaded");
 
         // List of API Urls
         var dataContract = {
@@ -38,10 +38,8 @@ angular.module('wotStats')
                 dataContract['account']['search'] = url + json.account.list + '/?' + apikey + '&' + searchType + '&' + search;
                 // Account personal info
                 dataContract['account']['info'] = url + json.account.personal_data + '/?' + apikey + '&' + account_id;
-
-                console.log('2) setting dataContractService: ', dataContract);
             }).error(function (error) {
-                console.error('Cannot load data contract.', error);
+                growl.error('Failed to load data contract');
             });
         };
 

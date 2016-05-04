@@ -4,13 +4,12 @@ angular.module('wotStats')
 
 // API backend
 .factory('apiCalls',
-    function ($http, $q, configService) {
+    function ($http, $q, configService, growl) {
 
-    	console.info("- service 'apiFactory' loaded");
+    	// console.info("- service 'apiFactory' loaded");
 
         // Get data from API
         function getData(url) {
-            console.log(url);
             var d = $q.defer();
 
             $http({
@@ -18,11 +17,10 @@ angular.module('wotStats')
                     url: url
                 })
                 .success(function (data) {
-                    console.info('Resolved API promise: ', data);
                     d.resolve(data);
                 })
                 .error(function (error) {
-                    console.error('Server responded with error. Data could not be updated.');
+                    growl.error('Server responded with error. Data could not be loaded.');
                     d.reject(error);
                 });
 

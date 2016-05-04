@@ -13,6 +13,7 @@
     "gulp-angular-filesort": "^1.1.1",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-dir": "*",
+    "gulp-imagemin": "^2.4.0",
     "gulp-inject": "*",
     "gulp-order": "^1.1.1",
     "gulp-rename": "*",
