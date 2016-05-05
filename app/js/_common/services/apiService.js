@@ -29,6 +29,5 @@ angular.module('wotStats')
 
     	return {
     		getData: getData
-    	};
-
+    	}
 });

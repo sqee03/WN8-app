@@ -6,6 +6,9 @@ angular.module('wotStats', [
         'ngAnimate',
         'momentjs',
 
+        // Offlinejs
+        'offlinejs',
+
         // Notifications
         'angular-growl',
         'notifications',

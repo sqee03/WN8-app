@@ -19,6 +19,7 @@ module.exports = {
         main: 'dist',
         vendor_js: 'dist/bower_components/*.js',
         vendor_css: 'dist/bower_components/*.css',
+        offline: 'dist/js/offline.js',
         js: 'dist/js/*.js',
         json: 'dist/json/*.json',
         css: 'dist/css/*.css',
