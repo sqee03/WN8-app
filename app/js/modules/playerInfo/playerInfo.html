@@ -1,11 +1,16 @@
-<input type="text" placeholder="Player name" ng-model="playerName" ng-keydown="$event.which === 13 && getPlayer(playerName)" />
+<div class="player-info">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Player name" ng-model="playerName" ng-keydown="$event.which === 13 && getPlayer(playerName)" />
+    </div>
+    <button ng-click="getPlayer(playerName)" class="btn btn-lg btn-search more" type="submit">Get player info</button>
 
-<hr />
+    <hr />
 
-account_id: {{playerID}}<br />
-created at: {{createdAt}}<br />
+    account_id: {{playerID}}<br />
+    created at: {{createdAt}}<br />
 
-<personal-rating ng-if="playerInfo"></personal-rating>
+    <personal-rating ng-if="playerInfo"></personal-rating>
+</div>
 
 <hr />
 

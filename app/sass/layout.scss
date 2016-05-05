@@ -34,13 +34,33 @@ a {
 
 /*
 * ------------------------------------
-*    Angular
+*    Input
 * ------------------------------------
 */
-input {
-	padding: 5px;
-	font-size: 15px;
-	border: 1px solid white;
-	transition: 0.5s linear all;
-	color: #333;
+
+
+/*
+* ------------------------------------
+*    Buttons
+* ------------------------------------
+*/
+.btn {
+	border-radius: 0.1875em;
+}
+.btn-search {
+	color: #fff;
+	background-color: #bf0c78;
+}
+.btn.more:after {
+	position: relative;
+	display: inline-block;
+	vertical-align: baseline;
+	color: inherit;
+	font-style: normal;
+	font-weight: inherit;
+	font-size: 1em;
+	line-height: 1;
+	text-decoration: none;
+	content: "\203A";
+	padding-left: .3em;
 }
