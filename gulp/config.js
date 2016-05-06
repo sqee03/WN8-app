@@ -25,5 +25,9 @@ module.exports = {
         css: 'dist/css/*.css',
         tpl: 'dist/templates/*.js',
         index: 'dist/index.html'
+    },
+    docs: {
+        main: 'docs/dist',
+        readme: 'README.md'
     }
 };

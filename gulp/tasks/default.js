@@ -9,6 +9,7 @@ gulp.task('dev', function(callback) {
                 ['js', 'json', 'sass', 'html2js', 'images', 'vendor'],
                 'inject',
                 'sync',
+                'docs',
                 'watch',
                 callback);
 });

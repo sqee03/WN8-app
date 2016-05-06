@@ -1,0 +1,25 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "include": [
+            "./app/js",
+            "./README.md"
+        ]
+    },
+    "plugins": [
+        "plugins/markdown"
+    ],
+    "opts": {
+        "template": "node_modules/docdash",
+        "encoding": "utf8",
+        "destination": "./docs/dist/",
+        "recurse": true,
+        "verbose": true
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    }
+}
