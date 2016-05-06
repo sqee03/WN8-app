@@ -5,7 +5,7 @@ angular.module('personalRating')
 .directive('personalRating',
     function () {
 
-        console.info("- directive 'personal-rating' loaded");
+        // console.info("- directive 'personal-rating' loaded");
 
         return {
             restrict: 'E',

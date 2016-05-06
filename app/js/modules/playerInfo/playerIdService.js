@@ -11,6 +11,13 @@ angular.module('playerInfo')
         var cachedID = null;
         var cachedName = null;
 
+        /**
+         * Service responsible for getting and providing player ID
+         *
+         * @function playerIDService
+         * @param {string} player - Name of player (min 3 letters)
+         * @returns {Number} ID for requested player name
+         */
         function fetchID(name) {
             var d = $q.defer();
 
