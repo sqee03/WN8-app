@@ -12,5 +12,10 @@
     "account_id": "account_id",
     "personal_data": "info",
     "list": "list"
+  },
+  "tanks": {
+    "base_uri": "tanks",
+    "tank_id": "tank_id",
+    "statistics": "stats"
   }
 }

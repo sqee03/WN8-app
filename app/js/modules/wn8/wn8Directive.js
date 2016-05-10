@@ -16,7 +16,7 @@ angular.module('WN8')
         return {
             restrict: 'E',
             replace: true,
-            controller: 'wn8Ctrl',
+            controller: 'WN8Ctrl',
             templateUrl: 'js/modules/wn8/wn8.html'
         };
 });

@@ -18,7 +18,8 @@ angular.module('wotStats', [
 
         // App
         'playerInfo',
-        'personalRating'
+        'personalRating',
+        'WN8'
     ])
 
     .config(

@@ -12,10 +12,10 @@ angular.module('playerInfo')
         var cachedName = null;
 
         /**
-         * Service responsible for getting and providing player ID
+         * Fetching player ID from server
          *
-         * @function playerIDService
-         * @param {string} player - Name of player (min 3 letters)
+         * @function fetchID
+         * @param {string} name - Name of player (min 3 letters)
          * @returns {Number} ID for requested player name
          */
         function fetchID(name) {
@@ -46,9 +46,21 @@ angular.module('playerInfo')
             return d.promise
         }
 
+        /**
+         * Responsible for providing player ID based on player name
+         *
+         * @function playerIDService
+         * @param {string} player - Name of player (min 3 letters)
+         * @returns {Number} ID for requested player name
+         */
         function getPlayerID(name) {
             var d = $q.defer();
 
+            // If you want to get cached ID
+            // It will return ID cache for last cached name if available
+            if (cachedName && !name && cachedID) {
+                d.resolve(cachedID);
+            }
             if (name) {
                 // Fetch new data only when name has been updated
                 if ((name !== cachedName) || !cachedName) {

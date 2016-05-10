@@ -9,7 +9,8 @@ angular.module('wotStats')
 
         // List of API Urls
         var dataContract = {
-            'account': {}
+            'account': {},
+            'tanks': {}
         };
 
         // Get API key
@@ -27,7 +28,8 @@ angular.module('wotStats')
         function setDataContract() {
             $http.get('json/wargamingDataContract.json').success(function(json) {
                 // Base URL parts
-                var url = json.api.uri + '/' + json.account.base_uri + '/';
+                var url_account = json.api.uri + '/' + json.account.base_uri + '/';
+                var url_tanks = json.api.uri + '/' + json.tanks.base_uri + '/';
                 var apikey = json.api.key + '=' + getAPIkey();
                 var account_id = json.account.account_id + '=';
                 var personal_data = json.account.personal_data + '=';
@@ -35,9 +37,12 @@ angular.module('wotStats')
                 var searchType = json.api.search.type + '=' + getSearchType();
 
                 // Account search
-                dataContract['account']['search'] = url + json.account.list + '/?' + apikey + '&' + searchType + '&' + search;
+                dataContract['account']['search'] = url_account + json.account.list + '/?' + apikey + '&' + searchType + '&' + search;
                 // Account personal info
-                dataContract['account']['info'] = url + json.account.personal_data + '/?' + apikey + '&' + account_id;
+                dataContract['account']['info'] = url_account + json.account.personal_data + '/?' + apikey + '&' + account_id;
+                // Tank info
+                dataContract['tanks']['stats'] = url_tanks + json.tanks.statistics + '/?' + apikey + '&' + account_id;
+                dataContract['tanks']['stats']['suffix'] = json.tanks.statistics.tank_id + '=';
             }).error(function (error) {
                 growl.error('Failed to load data contract');
             });
