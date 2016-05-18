@@ -10,7 +10,8 @@ angular.module('wotStats')
         // List of API Urls
         var dataContract = {
             'account': {},
-            'tanks': {}
+            'tanks': { 'stats': {} },
+            'expected_values': {}
         };
 
         // Get API key
@@ -40,12 +41,16 @@ angular.module('wotStats')
                 dataContract['account']['search'] = url_account + json.account.list + '/?' + apikey + '&' + searchType + '&' + search;
                 // Account personal info
                 dataContract['account']['info'] = url_account + json.account.personal_data + '/?' + apikey + '&' + account_id;
+
                 // Tank info
-                dataContract['tanks']['stats'] = url_tanks + json.tanks.statistics + '/?' + apikey + '&' + account_id;
-                dataContract['tanks']['stats']['suffix'] = json.tanks.statistics.tank_id + '=';
+                dataContract['tanks']['stats']['url'] = url_tanks + json.tanks.statistics + '/?' + apikey + '&' + account_id;
+                dataContract['tanks']['stats']['suffix'] = '&' + json.tanks.tank_id + '=';
             }).error(function (error) {
                 growl.error('Failed to load data contract');
             });
+
+            // Expected tank values
+            dataContract['expected_values'] = 'json/expected_tank_values_20.json';
         };
 
         // GET data contract

@@ -4,7 +4,8 @@ angular.module('wotStats', [
         // Libraries
         'ui.router',
         'ngAnimate',
-        'momentjs',
+        'momentjs', // custom req. library
+        'lodash', // custom req. library
 
         // Offlinejs
         'offlinejs',
@@ -17,8 +18,11 @@ angular.module('wotStats', [
         'templateCache',
 
         // App
+        'playerSearch',
+        'playerId',
         'playerInfo',
         'personalRating',
+        'tankInfo',
         'WN8'
     ])
 
@@ -49,8 +53,7 @@ angular.module('wotStats', [
                 // Player info
                 .state('app.player', {
                     url: '/player',
-                    controller: 'playerInfoCtrl',
-                    templateUrl: 'js/modules/playerInfo/playerInfo.html'
+                    templateUrl: 'views/player.html'
                 })
                 // Default redirect
                 $urlRouterProvider.otherwise("/");

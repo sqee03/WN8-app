@@ -3,87 +3,38 @@
 angular.module('WN8')
 
 .factory('WN8Service',
-    function ($q, apiCalls, dataContractService, growl) {
-
-        console.info("- service 'WN8Service' loaded");
-
+    function ($q, $rootScope, $window, apiCalls, dataContractService, playerIDService, growl, _) {
         // Variables
-        var wn8 = {};
         var dataContract = dataContractService.getDataContract();
-
-        // Mocks
-        var mock = {
-            expected: [
-                { expDmg: 380.40 },
-                { expFrag: 0.52 },
-                { expSpot: 3.22 },
-                { expDef: 0.62 },
-                { expWinRate: 52.86 }
-            ],
-            values: [
-                { avgDmg: 380.40 },
-                { avgFrag: 0.52 },
-                { avgSpot: 3.22 },
-                { avgDef: 0.62 },
-                { avgWinRate: 52.86 }
-            ],
-        }
-
-        /**
-         * Get average and expected values for requested tank
-         *
-         * @function getTankValues
-         * @param {Number} tankID - ID of requested tank
-         * @returns {Object} average values, expected valaues
-         */
-        function getTankValues(tankID) {
-            var d = $q.defer();
-
-            // Get average values
-            apiCalls.getData(dataContract.tanks.stats + playerID + dataContract.tanks.stats.suffix + tankID).then(function(averageValues) {
-                d.resolve(averageValues)
-            });
-
-            // Get expected values
-            apiCalls.getData(dataContractService.getDataContract().account.search + tankID).then(function(expectedValues) {
-                d.resolve(averageValues)
-            });
-
-            return d.promise
-        }
+        var playerID = $rootScope.storedID.id;
 
         /**
          * Calculate WN8 for a single tank
          *
          * @function calcTankWN8
-         * @param {Array} averageValues - avgDmg, avgFrag, avgSpot, avgDef, avgWinRate
-         * @param {Array} expectedValues - expDmg, expFrag, expSpot, expDef, expWinRate
+         * @param {Object} averageValues - avgDamage, avgFrag, avgSpot, avgDef, avgWinRate
+         * @param {Object} expectedValues - expDamage, expFrag, expSpot, expDef, expWinRate
          * @returns {Number} WN8 value for requested tank
          */
         function calcTankWN8(averageValues, expectedValues) {
+            console.log('about to calc wn8: ', averageValues, expectedValues);
+
             var d = $q.defer();
 
-            // update variables with recieved data
-            var avgDmg = avgDmg;
-            var avgFrag = avgFrag;
-            var avgSpot = avgSpot;
-            var avgDef = avgDef;
-            var avgWinRate = avgWinRate;
-
             // step 1
-            var rDAMAGE = avgDmg     / expDmg;
-            var rFRAG   = avgFrag    / expFrag;
-            var rSPOT   = avgSpot    / expSpot;
-            var rDEF    = avgDef     / expDef;
-            var rWIN    = avgWinRate / expWinRate;
+            var rDAMAGE = ($window.Math.round(averageValues.avgDamage*100)/100) / expectedValues.expDamage;
+            var rFRAG = ($window.Math.round(averageValues.avgFrag*100)/100) / expectedValues.expFrag;
+            var rSPOT = ($window.Math.round(averageValues.avgSpot*100)/100) / expectedValues.expSpot;
+            var rDEF = ($window.Math.round(averageValues.avgDef*100)/100) / expectedValues.expDef;
+            var rWIN = ($window.Math.round(averageValues.avgWinRate*100)/100) / expectedValues.expWinRate;
             console.debug("DONE: calcStep1 / " +rDAMAGE+ "," +rFRAG+ "," +rSPOT+ "," +rDEF+ "," +rWIN);
 
             // step 2
             var rDAMAGEc = $window.Math.max(0, (rDAMAGE - 0.22) / (1 - 0.22));
-            var rFRAGc   = $window.Math.max(0, $window.Math.min(rDAMAGEc + 0.2, (rFRAG   - 0.12) / (1 - 0.12)));
-            var rSPOTc   = $window.Math.max(0, $window.Math.min(rDAMAGEc + 0.1, (rSPOT   - 0.38) / (1 - 0.38)));
-            var rDEFc    = $window.Math.max(0, $window.Math.min(rDAMAGEc + 0.1, (rDEF    - 0.10) / (1 - 0.10)));
-            var rWINc    = $window.Math.max(0, (rWIN - 0.71) / (1 - 0.71));
+            var rFRAGc = $window.Math.max(0, $window.Math.min(rDAMAGEc + 0.2, (rFRAG - 0.12) / (1 - 0.12)));
+            var rSPOTc = $window.Math.max(0, $window.Math.min(rDAMAGEc + 0.1, (rSPOT - 0.38) / (1 - 0.38)));
+            var rDEFc = $window.Math.max(0, $window.Math.min(rDAMAGEc + 0.1, (rDEF - 0.10) / (1 - 0.10)));
+            var rWINc = $window.Math.max(0, (rWIN - 0.71) / (1 - 0.71));
             console.debug("DONE: calcStep2 / " +rDAMAGEc+ "," +rFRAGc+ "," +rSPOTc+ "," +rDEFc+ "," +rWINc);
 
             // step 3
@@ -91,29 +42,22 @@ angular.module('WN8')
             var roundedWN8 = $window.Math.round(wn8 * 100) / 100;
             console.debug("DONE: calcStep3 / rounded WN8 = " + roundedWN8);
 
-            // return roundedWN8;
-
-            d.resolve('sample tank wn8 value');
+            d.resolve(roundedWN8);
 
             return d.promise
         };
 
         /**
-         * Provide WN8 for requested tank
+         * Set color based on WN8 rating number
          *
-         * @function getTankWN8
-         * @param {Number} tankID - tank ID
-         * @returns {Number} WN8 value for requested tank
+         * @function setWN8RatingColor
+         * @param {Number} rating - WN8 number
+         * @returns {String} color - hexadecimal color code
          */
-        function getTankWN8(tankID) {
-            getTankValues(tankID).then(function(tankValues) {
-                return calcTankWN8(getTankValues);
-            })
-        };
-
-        /** setRatingColor controller */
-        function setRatingColor(rating) {
+        function setWN8RatingColor(rating) {
             var d = $q.defer();
+
+            var wn8 = {};
 
             if (rating || rating == 0) {
                 // Set color for rating
@@ -148,7 +92,7 @@ angular.module('WN8')
                     default:
                         wn8['color'] = '#401070';
                 };
-                d.resolve(wn8);
+                d.resolve(wn8.color);
             }
             else {
                 growl.error('Failed to set WN8 color. WN8 value is missing');
@@ -159,8 +103,7 @@ angular.module('WN8')
         };
 
         return {
-            setRatingColor: setRatingColor,
-            calcTankWN8: calcTankWN8,
-            getTankWN8: getTankWN8
+            setWN8RatingColor: setWN8RatingColor,
+            calcTankWN8: calcTankWN8
         }
 });

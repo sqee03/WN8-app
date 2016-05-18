@@ -12,6 +12,8 @@ angular.module('wotStats')
         function getData(url) {
             var d = $q.defer();
 
+            console.log(url);
+
             $http({
                     method: 'GET',
                     url: url

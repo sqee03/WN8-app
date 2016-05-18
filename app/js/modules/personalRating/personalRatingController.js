@@ -4,9 +4,6 @@ angular.module('personalRating')
 
 .controller('personalRatingCtrl',
     function ($scope, personalRatingService, growl) {
-
-        console.info("- controller 'personalRatingCtrl' loaded");
-
         // Variables
         $scope.extendedRatingInfo = {};
 
