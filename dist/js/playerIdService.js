@@ -10,7 +10,7 @@ angular.module('playerId')
         /**
          * Fetching player ID from server and storing it
          *
-         * @function fetchID
+         * @memberOf module:playerId
          * @param {string} name - Name of player (min 3 letters)
          * @returns {Number} ID for requested player name
          */
@@ -47,7 +47,7 @@ angular.module('playerId')
         /**
          * Responsible for providing player ID based on player name
          *
-         * @function playerIDService
+         * @memberOf module:playerId
          * @param {string} player - Name of player (min 3 letters)
          * @returns {Number} ID for requested player name
          */

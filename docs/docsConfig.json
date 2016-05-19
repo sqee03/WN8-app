@@ -9,8 +9,9 @@
         ]
     },
     "plugins": [
-        "plugins/markdown"
+        "./node_modules/jsdoc/plugins/markdown"
     ],
+    "categoryfile" : "./docs/categoryfile.json",
     "opts": {
         "template": "node_modules/docdash",
         "encoding": "utf8",

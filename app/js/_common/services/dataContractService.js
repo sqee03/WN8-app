@@ -50,7 +50,7 @@ angular.module('wotStats')
             });
 
             // Expected tank values
-            dataContract['expected_values'] = 'json/expected_tank_values_20.json';
+            dataContract['expected_values'] = 'json/expected_tank_values_26.json';
         };
 
         // GET data contract

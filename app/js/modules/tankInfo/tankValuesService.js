@@ -11,7 +11,7 @@ angular.module('tankInfo')
         /**
          * Get average values for requested tank
          *
-         * @function getAverageTankValues
+         * @memberOf module:tankInfo
          * @param {Number} tankID - ID of requested tank
          * @returns {Object} average values
          */
@@ -38,7 +38,7 @@ angular.module('tankInfo')
         /**
          * Get expected values for requested tank
          *
-         * @function getExpectedTankValues
+         * @memberOf module:tankInfo
          * @param {Number} tankID - ID of requested tank
          * @returns {Object} expected valaues
          */
@@ -65,7 +65,7 @@ angular.module('tankInfo')
          * Get average and expected values for requested tank
          * Returns object for both collections when both http requests are resolved
          *
-         * @function getTankValues
+         * @memberOf module:tankInfo
          * @param {Number} tankID - ID of requested tank
          * @returns {Object} average and expected values
          */
@@ -74,15 +74,15 @@ angular.module('tankInfo')
                 var averageValues = data.averageValues;
                 var expectedValues = data.expectedValues;
 
-                console.log('$q.all finished');
                 return { averageValues: averageValues, expectedValues: expectedValues }
             });
         }
 
         /**
          * Get average and expected values for all tank
+         * @todo Implement this function(not finished atm)
          *
-         * @function getAllTanksValues
+         * @memberOf module:tankInfo
          * @returns {Object} average values, expected valaues
          */
         function getAllTanksValues() {

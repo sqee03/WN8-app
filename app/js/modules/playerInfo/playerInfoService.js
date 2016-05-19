@@ -4,13 +4,17 @@ angular.module('playerInfo')
 
 .factory('playerInfoService',
     function (apiCalls, dataContractService, configService, playerIDService, $q, growl) {
-
-        // console.info("- service 'playerInfoService' loaded");
-
         // Variables
         var cachedInfo;
         var cachedID;
 
+        /**
+         * Get player info
+         *
+         * @memberOf module:playerInfo
+         * @param {Number} id - player id
+         * @returns {Obejct} player info
+         */
         function getPlayerInfo(id) {
             var d = $q.defer();
 

@@ -4,9 +4,6 @@ angular.module('WN8')
 
 .controller('WN8Ctrl',
     function ($scope, WN8Service, tankValuesService, growl) {
-
-        console.info("- controller 'WN8Ctrl' loaded");
-
         // Mocks
         var mock = {
             tankID: 9489 // e100
@@ -15,7 +12,7 @@ angular.module('WN8')
         /**
          * Feeds UI with WN8 for requested tank
          *
-         * @function tankWN8
+         * @memberOf module:WN8
          * @param {Number} tankID - ID of tank
          * @returns {Number} WN8 value for requested tank
          */

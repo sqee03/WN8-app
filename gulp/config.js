@@ -13,7 +13,10 @@ module.exports = {
             src: 'app/**/*.scss'
         },
         json: 'app/**/*.json',
-        images: 'app/img/*.*'
+        images: {
+            src: 'app/img/*.*',
+            favicon: 'app/favicon.ico'
+        }
     },
     build: {
         main: 'dist',

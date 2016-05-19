@@ -3,31 +3,45 @@
 angular.module('WN8')
 
 .factory('WN8Service',
-    function ($q, $rootScope, $window, apiCalls, dataContractService, playerIDService, growl, _) {
+    function ($q, $rootScope, $window, apiCalls, dataContractService, playerIDService, _) {
         // Variables
         var dataContract = dataContractService.getDataContract();
         var playerID = $rootScope.storedID.id;
 
         /**
+         * Round up values to three or two decimal places
+         *
+         * @private
+         * @param {Number} number
+         * @param {Number} number of decimal places
+         * @returns {Number} rounded number
+         */
+        function roundUp(number, places) {
+            if (places == 2) {
+                return $window.Math.round(number * 100) / 100;
+            }
+            else {
+                return $window.Math.round(number * 1000) / 1000;
+            }
+        };
+
+        /**
          * Calculate WN8 for a single tank
          *
-         * @function calcTankWN8
+         * @memberOf module:WN8
          * @param {Object} averageValues - avgDamage, avgFrag, avgSpot, avgDef, avgWinRate
          * @param {Object} expectedValues - expDamage, expFrag, expSpot, expDef, expWinRate
          * @returns {Number} WN8 value for requested tank
          */
         function calcTankWN8(averageValues, expectedValues) {
-            console.log('about to calc wn8: ', averageValues, expectedValues);
-
             var d = $q.defer();
 
             // step 1
-            var rDAMAGE = ($window.Math.round(averageValues.avgDamage*100)/100) / expectedValues.expDamage;
-            var rFRAG = ($window.Math.round(averageValues.avgFrag*100)/100) / expectedValues.expFrag;
-            var rSPOT = ($window.Math.round(averageValues.avgSpot*100)/100) / expectedValues.expSpot;
-            var rDEF = ($window.Math.round(averageValues.avgDef*100)/100) / expectedValues.expDef;
-            var rWIN = ($window.Math.round(averageValues.avgWinRate*100)/100) / expectedValues.expWinRate;
-            console.debug("DONE: calcStep1 / " +rDAMAGE+ "," +rFRAG+ "," +rSPOT+ "," +rDEF+ "," +rWIN);
+            var rDAMAGE = roundUp(averageValues.avgDamage) / expectedValues.expDamage;
+            var rFRAG = roundUp(averageValues.avgFrag) / expectedValues.expFrag;
+            var rSPOT = roundUp(averageValues.avgSpot) / expectedValues.expSpot;
+            var rDEF = roundUp(averageValues.avgDef) / expectedValues.expDef;
+            var rWIN = roundUp(averageValues.avgWinRate) / expectedValues.expWinRate;
 
             // step 2
             var rDAMAGEc = $window.Math.max(0, (rDAMAGE - 0.22) / (1 - 0.22));
@@ -35,12 +49,12 @@ angular.module('WN8')
             var rSPOTc = $window.Math.max(0, $window.Math.min(rDAMAGEc + 0.1, (rSPOT - 0.38) / (1 - 0.38)));
             var rDEFc = $window.Math.max(0, $window.Math.min(rDAMAGEc + 0.1, (rDEF - 0.10) / (1 - 0.10)));
             var rWINc = $window.Math.max(0, (rWIN - 0.71) / (1 - 0.71));
-            console.debug("DONE: calcStep2 / " +rDAMAGEc+ "," +rFRAGc+ "," +rSPOTc+ "," +rDEFc+ "," +rWINc);
 
             // step 3
             var wn8 = 980 * rDAMAGEc + 210 * rDAMAGEc * rFRAGc + 155 * rFRAGc*rSPOTc + 75 * rDEFc * rFRAGc + 145 * $window.Math.min(1.8,rWINc);
-            var roundedWN8 = $window.Math.round(wn8 * 100) / 100;
-            console.debug("DONE: calcStep3 / rounded WN8 = " + roundedWN8);
+
+            // round up
+            var roundedWN8 = roundUp(wn8, 2);
 
             d.resolve(roundedWN8);
 
@@ -50,7 +64,7 @@ angular.module('WN8')
         /**
          * Set color based on WN8 rating number
          *
-         * @function setWN8RatingColor
+         * @memberOf module:WN8
          * @param {Number} rating - WN8 number
          * @returns {String} color - hexadecimal color code
          */
@@ -95,7 +109,6 @@ angular.module('WN8')
                 d.resolve(wn8.color);
             }
             else {
-                growl.error('Failed to set WN8 color. WN8 value is missing');
                 d.reject(false);
             }
 

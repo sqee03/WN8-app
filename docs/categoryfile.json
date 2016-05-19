@@ -1,0 +1,11 @@
+{
+    "tankInfo" : {
+        "displayName" : "tankInfo"
+    },
+    "WN8" : {
+        "displayName" : "WN8"
+    },
+    "category/subcategory" : {
+        "displayName" : "A subcategory of 'category'"
+    }
+}
