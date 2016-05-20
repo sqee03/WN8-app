@@ -20,16 +20,24 @@ angular.module('tankInfo')
 
             // Get average values
             apiCalls.getData(dataContract.tanks.stats.url + playerID + dataContract.tanks.stats.suffix + tankID).then(function(averageValues) {
-                // Filter out values only for random battles
-                var avgValues = averageValues.data[playerID][0].all;
+                // Check if there are tank data in server response
+                if (averageValues.data[playerID]) {
+                    // Filter out values only for random battles
+                    var avgValues = averageValues.data[playerID][0].all;
 
-                d.resolve({
-                    avgDamage: avgValues.damage_dealt / avgValues.battles,
-                    avgDef: avgValues.dropped_capture_points / avgValues.battles,
-                    avgFrag: avgValues.frags / avgValues.battles,
-                    avgSpot: avgValues.spotted / avgValues.battles,
-                    avgWinRate: (avgValues.wins / avgValues.battles) * 100
-                });
+                    d.resolve({
+                        avgDamage: avgValues.damage_dealt / avgValues.battles,
+                        avgDef: avgValues.dropped_capture_points / avgValues.battles,
+                        avgFrag: avgValues.frags / avgValues.battles,
+                        avgSpot: avgValues.spotted / avgValues.battles,
+                        avgWinRate: (avgValues.wins / avgValues.battles) * 100
+                    });
+                }
+                else {
+                    d.reject(false)
+                }
+            }).then(function(error) {
+                d.reject(false)
             });
 
             return d.promise
@@ -47,15 +55,24 @@ angular.module('tankInfo')
 
             // Get expected values
             apiCalls.getData(dataContract.expected_values).then(function(expectedValues) {
+                // Filter out only requested tank
                 var findTankInCollection = _.find(expectedValues.data, ['IDNum', tankID]);
 
-                d.resolve({
-                    expDamage: findTankInCollection.expDamage,
-                    expDef: findTankInCollection.expDef,
-                    expFrag: findTankInCollection.expFrag,
-                    expSpot: findTankInCollection.expSpot,
-                    expWinRate: findTankInCollection.expWinRate
-                });
+                // Check if there are tank data in response
+                if (findTankInCollection) {
+                    d.resolve({
+                        expDamage: findTankInCollection.expDamage,
+                        expDef: findTankInCollection.expDef,
+                        expFrag: findTankInCollection.expFrag,
+                        expSpot: findTankInCollection.expSpot,
+                        expWinRate: findTankInCollection.expWinRate
+                    });
+                }
+                else {
+                    d.reject(false)
+                }
+            }).then(function(error) {
+                d.reject(false)
             });
 
             return d.promise

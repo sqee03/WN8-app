@@ -2,7 +2,8 @@ module.exports = {
     source: {
         js: {
             main: 'app/app.js',
-            src: 'app/**/*.js'
+            src: 'app/**/*.js',
+            tests: 'app/**/test/*.js'
         },
         tpl: {
             main: 'app/index.html',
