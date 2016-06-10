@@ -17,6 +17,9 @@ angular.module('wotStats', [
         // Template cache
         'templateCache',
 
+        // Filters
+        'filters',
+
         // App
         'playerSearch',
         'playerId',

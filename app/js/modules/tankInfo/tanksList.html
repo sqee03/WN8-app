@@ -1,0 +1,30 @@
+<div>
+    Player vehicles:
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Tank ID</td>
+                    <td>Battles</td>
+                    <td>WR</td>
+                    <td>Average dmg</td>
+                    <td>Average XP</td>
+                    <td>Survived</td>
+                    <td>WN8</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat='tank in tanksList'>
+                    <td ng-repeat='(id, values) in tank'>{{id}}</td>
+                    <td ng-repeat='(id, values) in tank'>{{values.battles}}</td>
+                    <td ng-repeat='(id, values) in tank'>{{values.avgWinRate | roundTo:2}} %</td>
+                    <td ng-repeat='(id, values) in tank'>{{values.avgDamage | roundTo}}</td>
+                    <td ng-repeat='(id, values) in tank'>{{values.avgXP | roundTo}} (max {{values.maxXP | roundTo}})</td>
+                    <td ng-repeat='(id, values) in tank'>{{values.avgSurvived | roundTo:1}} %</td>
+                    <td ng-repeat='(id, values) in tank'>{{getWN8(values) | roundTo}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

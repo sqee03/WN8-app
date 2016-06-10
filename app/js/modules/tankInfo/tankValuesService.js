@@ -9,6 +9,45 @@ angular.module('tankInfo')
         var playerID = $rootScope.storedID.id;
 
         /**
+         * Get list of all played tanks with details
+         *
+         * @memberOf module:tankInfo
+         * @returns {Object} list of tanks with detailed informations for all battles
+         */
+        function getListOfAllTanks() {
+            var d = $q.defer();
+            var tanksList = [];
+
+            apiCalls.getData(dataContract.tanks.stats.url + playerID).then(function(listOfTanks) {
+                // Check every tank on list
+                _.forEach(listOfTanks.data[playerID], function(tank) {
+                    // Use values from all battles
+                    // TODO: Maybe for random battles I need to extend API request with extra param 'extra=random'
+                    var avgValues = tank['all'];
+                    var tankID = tank['tank_id'];
+
+                    tanksList.push({ [tankID]: {
+                        avgDamage: avgValues.damage_dealt / avgValues.battles,
+                        avgDef: avgValues.dropped_capture_points / avgValues.battles,
+                        avgFrag: avgValues.frags / avgValues.battles,
+                        avgSpot: avgValues.spotted / avgValues.battles,
+                        avgWinRate: (avgValues.wins / avgValues.battles) * 100,
+                        avgXP: avgValues.xp / avgValues.battles,
+                        avgSurvived: (avgValues.survived_battles / avgValues.battles) * 100,
+                        maxXP: tank.max_xp,
+                        battles: avgValues.battles
+                    }});
+                });
+
+                d.resolve(tanksList);
+            }).then(function(error) {
+                d.reject(false)
+            });
+
+            return d.promise;
+        }
+
+        /**
          * Get average values for requested tank
          *
          * @memberOf module:tankInfo
@@ -44,11 +83,29 @@ angular.module('tankInfo')
         }
 
         /**
-         * Get expected values for requested tank
+         * Get list of expected values for all tanks in game
+         *
+         * @memberOf module:tankInfo
+         * @returns {Object} expected values for all tanks
+         */
+        var getAllExpectedValues = function () {
+            var d = $q.defer();
+
+            apiCalls.getData(dataContract.expected_values).then(function(expectedValues) {
+                d.resolve(expectedValues.data);
+            }).then(function(error) {
+                d.reject(false)
+            });
+
+            return d.promise;
+        }
+
+        /**
+         * Get expected values for one requested tank
          *
          * @memberOf module:tankInfo
          * @param {Number} tankID - ID of requested tank
-         * @returns {Object} expected valaues
+         * @returns {Object} expected values for one tank
          */
         function getExpectedTankValues(tankID) {
             var d = $q.defer();
@@ -96,42 +153,24 @@ angular.module('tankInfo')
         }
 
         /**
-         * Get average and expected values for all tank
-         * @todo Implement this function(not finished atm)
+         * Get detailed informations for all played tanks and expected values for every tank
          *
          * @memberOf module:tankInfo
-         * @returns {Object} average values, expected valaues
+         * @returns {Object} List of all played tanks with detailed informations from all battles, List of expected values for all tanks in game
          */
         function getAllTanksValues() {
-            var d1 = $q.defer();
-            var d2 = $q.defer();
-            var promises = [];
+            return $q.all({ tanksList: getListOfAllTanks(), expectedValues: getAllExpectedValues() }).then(function(promises) {
+                var tanksList = promises.tanksList;
+                var expectedValues = promises.expectedValues;
 
-            // TODO: Needs to be finished
-
-            // Get average values
-            apiCalls.getData(dataContract.tanks.stats.url + playerID + dataContract.tanks.stats.suffix + tankID).then(function(averageValues) {
-                console.info('loaded averageValues: ', averageValues);
-                d1.resolve(averageValues);
-                promises.push(d1);
+                return { tanksList: tanksList, expectedValues: expectedValues }
             });
-
-            // Get expected values
-            apiCalls.getData(dataContract.expected_values).then(function(expectedValues) {
-                console.info('loaded expectedValues: ', expectedValues);
-
-                var find = _.find(expectedValues.data, ['IDNum', tankID]);
-                console.info('loaded expectedValues - filtered: ', find);
-
-                d2.resolve(expectedValues.data.tankID);
-                promises.push(d2);
-            });
-
-            return $q.all(promises);
         }
 
         return {
+            getListOfAllTanks: getListOfAllTanks,
             getAverageTankValues: getAverageTankValues,
+            getAllExpectedValues: getAllExpectedValues,
             getExpectedTankValues: getExpectedTankValues,
             getTankValues: getTankValues,
             getAllTanksValues: getAllTanksValues
