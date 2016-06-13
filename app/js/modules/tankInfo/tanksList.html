@@ -1,6 +1,8 @@
 <div>
     Player vehicles:
 
+    <div ng-if="tanksList">{{getWN8(9489)}}</div>
+
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -22,7 +24,7 @@
                     <td ng-repeat='(id, values) in tank'>{{values.avgDamage | roundTo}}</td>
                     <td ng-repeat='(id, values) in tank'>{{values.avgXP | roundTo}} (max {{values.maxXP | roundTo}})</td>
                     <td ng-repeat='(id, values) in tank'>{{values.avgSurvived | roundTo:1}} %</td>
-                    <td ng-repeat='(id, values) in tank'>{{getWN8(values) | roundTo}}</td>
+                    <td ng-repeat='(id, values) in tank'>{{xxx | roundTo}}</td>
                 </tr>
             </tbody>
         </table>
