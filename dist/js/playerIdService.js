@@ -39,7 +39,10 @@ angular.module('playerId')
                     growl.error('No player found');
                     d.reject(false);
                 }
-            })
+            }, function(error) {
+                d.reject(false);
+                growl.error('Failed to load player ID from server.');
+            });
 
             return d.promise
         }
@@ -57,17 +60,25 @@ angular.module('playerId')
             // If you want to get cached ID
             // It will return ID cache for last cached name if available
             if ($rootScope.storedID) {
+                console.log('1) cache exist');
                 // if ($rootScope.storedID.name && !name && $rootScope.storedID.id) {
                 //     d.resolve($rootScope.storedID.id);
                 // }
                 if (name) {
+                    console.log('2) name is defined');
                     // Fetch new data only when name has been updated
                     if ((name !== $rootScope.storedID.name) || !$rootScope.storedID.name) {
+                        console.log('3) new name - fetching ID');
                         d.resolve(fetchID(name));
                     }
                     else {
-                        if ($rootScope.storedID.id) { // Return cached ID if name did not changed
+                        if ($rootScope.storedID.id) { // Return cached ID if it is stored
+                            console.log('3) old name - returning cache');
                             d.resolve($rootScope.storedID.id);
+                        }
+                        else { // Fetch ID again
+                            console.log('3) old name - ID is not stored, fetching it');
+                            d.resolve(fetchID(name));
                         }
                     }
                 }
@@ -77,6 +88,7 @@ angular.module('playerId')
                 }
             }
             else { // Fetch ID because there is no cache yet
+                console.log('0) cache does not exist yet');
                 d.resolve(fetchID(name));
             }
 

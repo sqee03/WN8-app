@@ -3,7 +3,7 @@
 angular.module('playerSearch')
 
 .controller('playerSearchCtrl',
-    function ($scope, playerIDService, playerInfoService, moment) {
+    function ($scope, playerIDService, playerInfoService) {
         // Variables
         $scope.playerID = null;
 

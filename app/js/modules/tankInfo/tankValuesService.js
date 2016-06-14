@@ -19,25 +19,27 @@ angular.module('tankInfo')
             var tanksList = [];
 
             apiCalls.getData(dataContract.tanks.stats.url + playerID).then(function(listOfTanks) {
-                // Check every tank on list
-                _.forEach(listOfTanks.data[playerID], function(tank) {
-                    // Use values from all battles
-                    // TODO: Maybe for random battles I need to extend API request with extra param 'extra=random'
-                    var avgValues = tank['all'];
-                    var tankID = tank['tank_id'];
+                if (listOfTanks.data[playerID] !== null) {
+                    // Check every tank on list
+                    _.forEach(listOfTanks.data[playerID], function(tank) {
+                        // Use values from all battles
+                        // TODO: Maybe for random battles I need to extend API request with extra param 'extra=random'
+                        var avgValues = tank['all'];
+                        var tankID = tank['tank_id'];
 
-                    tanksList.push({ [tankID]: {
-                        avgDamage: avgValues.damage_dealt / avgValues.battles,
-                        avgDef: avgValues.dropped_capture_points / avgValues.battles,
-                        avgFrag: avgValues.frags / avgValues.battles,
-                        avgSpot: avgValues.spotted / avgValues.battles,
-                        avgWinRate: (avgValues.wins / avgValues.battles) * 100,
-                        avgXP: avgValues.xp / avgValues.battles,
-                        avgSurvived: (avgValues.survived_battles / avgValues.battles) * 100,
-                        maxXP: tank.max_xp,
-                        battles: avgValues.battles
-                    }});
-                });
+                        tanksList.push({ [tankID]: {
+                            avgDamage: avgValues.damage_dealt / avgValues.battles,
+                            avgDef: avgValues.dropped_capture_points / avgValues.battles,
+                            avgFrag: avgValues.frags / avgValues.battles,
+                            avgSpot: avgValues.spotted / avgValues.battles,
+                            avgWinRate: (avgValues.wins / avgValues.battles) * 100,
+                            avgXP: avgValues.xp / avgValues.battles,
+                            avgSurvived: (avgValues.survived_battles / avgValues.battles) * 100,
+                            maxXP: tank.max_xp,
+                            battles: avgValues.battles
+                        }});
+                    });
+                }
 
                 d.resolve(tanksList);
             }).then(function(error) {

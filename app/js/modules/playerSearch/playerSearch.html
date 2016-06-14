@@ -1,6 +1,8 @@
 <div class="player-info">
-    <div class="form-group">
-        <input type="text" class="form-control" placeholder="Player name" ng-model="playerName" ng-keydown="$event.which === 13 && getPlayer(playerName)" />
-    </div>
-    <button ng-click="getPlayer(playerName)" class="btn btn-lg btn-search more" type="submit">Get player info</button>
+    <form ng-submit="getPlayer(playerName)">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Player name" ng-model="playerName" />
+        </div>
+        <button class="btn btn-lg btn-search more" type="submit">Get player info</button>
+    </form>
 </div>

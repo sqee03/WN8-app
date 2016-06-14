@@ -1,9 +1,11 @@
 <div>
     Player vehicles:
 
-    <div ng-if="tanksList">{{getWN8(9489)}}</div>
+    <div ng-if="!isArray(tanksList)">
+        {{tanksList}}
+    </div>
 
-    <div class="table-responsive">
+    <div class="table-responsive" ng-if="isArray(tanksList)">
         <table class="table">
             <thead>
                 <tr>
@@ -17,14 +19,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat='tank in tanksList'>
+                <tr ng-repeat='tank in tanksList | limitTo: 5'>
                     <td ng-repeat='(id, values) in tank'>{{id}}</td>
                     <td ng-repeat='(id, values) in tank'>{{values.battles}}</td>
                     <td ng-repeat='(id, values) in tank'>{{values.avgWinRate | roundTo:2}} %</td>
                     <td ng-repeat='(id, values) in tank'>{{values.avgDamage | roundTo}}</td>
                     <td ng-repeat='(id, values) in tank'>{{values.avgXP | roundTo}} (max {{values.maxXP | roundTo}})</td>
                     <td ng-repeat='(id, values) in tank'>{{values.avgSurvived | roundTo:1}} %</td>
-                    <td ng-repeat='(id, values) in tank'>{{xxx | roundTo}}</td>
+                    <td ng-repeat='(id, values) in tank'>{{values.wn8 | roundTo}}</td>
                 </tr>
             </tbody>
         </table>
