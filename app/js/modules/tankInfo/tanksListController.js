@@ -80,14 +80,22 @@ angular.module('tankInfo')
         function getWN8(averageValues,expectedValues) {
                 // Get WN8 for tank
                 return WN8Service.calcTankWN8(averageValues,expectedValues).then(function(WN8) {
-                    return WN8;
+                    var wn8 = { 'value': WN8 };
+
+                    WN8Service.setWN8RatingColor(WN8).then(function(color) {
+                        wn8['color'] = color;
+                    }, function(error) {
+                        console.error('Failed to get color of WN8');
+                    });
+
+                    return wn8;
                 }, function(error) {
                     growl.error('Failed to get WN8 for tank(id:' + tankID + ')');
                     return '';
                 });
         };
 
-        /* Watcher */
+        /* Watcher for playerID changes */
         $rootScope.$watch('storedID', function (playerID) {
             console.log('playerID watcher triggered: ', playerID.id);
             getTanksList();

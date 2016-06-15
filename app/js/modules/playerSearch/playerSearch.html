@@ -1,8 +1,8 @@
 <div class="player-info">
-    <form ng-submit="getPlayer(playerName)">
+    <form name="playerSearch" ng-submit="getPlayer(playerName)" novalidate>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Player name" ng-model="playerName" />
+            <input type="text" class="form-control" placeholder="Player name" ng-model="playerName" required />
         </div>
-        <button class="btn btn-lg btn-search more" type="submit">Get player info</button>
+        <button class="btn btn-lg btn-search more" type="submit" ng-disabled="!playerSearch.$valid">Get player info</button>
     </form>
 </div>

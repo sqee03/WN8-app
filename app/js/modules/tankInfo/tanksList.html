@@ -5,7 +5,7 @@
         {{tanksList}}
     </div>
 
-    <div class="table-responsive" ng-if="isArray(tanksList)">
+    <div class="table-responsive tanks-list" ng-if="isArray(tanksList)">
         <table class="table">
             <thead>
                 <tr>
@@ -19,14 +19,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat='tank in tanksList | limitTo: 5'>
+                <tr ng-repeat='tank in tanksList'>
                     <td ng-repeat='(id, values) in tank'>{{id}}</td>
                     <td ng-repeat='(id, values) in tank'>{{values.battles}}</td>
                     <td ng-repeat='(id, values) in tank'>{{values.avgWinRate | roundTo:2}} %</td>
                     <td ng-repeat='(id, values) in tank'>{{values.avgDamage | roundTo}}</td>
                     <td ng-repeat='(id, values) in tank'>{{values.avgXP | roundTo}} (max {{values.maxXP | roundTo}})</td>
                     <td ng-repeat='(id, values) in tank'>{{values.avgSurvived | roundTo:1}} %</td>
-                    <td ng-repeat='(id, values) in tank'>{{values.wn8 | roundTo}}</td>
+                    <td ng-repeat='(id, values) in tank' ng-style="{'color': '#fff', 'background-color': values.wn8.color}">{{values.wn8.value | roundTo}}</td>
                 </tr>
             </tbody>
         </table>

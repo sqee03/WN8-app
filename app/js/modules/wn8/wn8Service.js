@@ -76,31 +76,31 @@ angular.module('WN8')
             if (rating || rating == 0) {
                 // Set color for rating
                 switch(true) {
-                    case (rating < 2000):
+                    case (rating < 300):
                         wn8['color'] = '#930D0D';
                         break;
-                    case (rating < 3000):
+                    case (rating < 500):
                         wn8['color'] = '#CD3333';
                         break;
-                    case (rating < 4000):
+                    case (rating < 650):
                         wn8['color'] = '#CC7A00';
                         break;
-                    case (rating < 5000):
+                    case (rating < 900):
                         wn8['color'] = '#CCB800';
                         break;
-                    case (rating < 6000):
+                    case (rating < 1200):
                         wn8['color'] = '#849B24';
                         break;
-                    case (rating < 7000):
+                    case (rating < 1600):
                         wn8['color'] = '#4D7326';
                         break;
-                    case (rating < 8000):
+                    case (rating < 2000):
                         wn8['color'] = '#4099BF';
                         break;
-                    case (rating < 9000):
+                    case (rating < 2500):
                         wn8['color'] = '#3972C6';
                         break;
-                    case (rating < 10000):
+                    case (rating < 2900):
                         wn8['color'] = '#793DB6';
                         break;
                     default:
