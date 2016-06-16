@@ -9,24 +9,54 @@
         <table class="table">
             <thead>
                 <tr>
-                    <td>Tank ID</td>
-                    <td>Battles</td>
-                    <td>WR</td>
-                    <td>Average dmg</td>
-                    <td>Average XP</td>
-                    <td>Survived</td>
-                    <td>WN8</td>
+                    <th>#</th>
+                    <th ng-click="sortType='tankID'; sortReverse=!sortReverse">
+                        Tank ID
+                        <span ng-show="sortType == 'tankID' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortType == 'tankID' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th ng-click="sortType='battles'; sortReverse=!sortReverse">
+                        Battles
+                        <span ng-show="sortType == 'battles' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortType == 'battles' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th ng-click="sortType='avgWinRate'; sortReverse=!sortReverse">
+                        WR
+                        <span ng-show="sortType == 'avgWinRate' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortType == 'avgWinRate' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th ng-click="sortType='avgDamage'; sortReverse=!sortReverse">
+                        Average dmg
+                        <span ng-show="sortType == 'avgDamage' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortType == 'avgDamage' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th ng-click="sortType='avgXP'; sortReverse=!sortReverse">
+                        Average XP
+                        <span ng-show="sortType == 'avgXP' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortType == 'avgXP' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th ng-click="sortType='avgSurvived'; sortReverse=!sortReverse">
+                        Survived
+                        <span ng-show="sortType == 'avgSurvived' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortType == 'avgSurvived' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
+                    <th ng-click="sortType = 'wn8.value'; sortReverse = !sortReverse">
+                        WN8
+                        <span ng-show="sortType == 'wn8.value' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
+                        <span ng-show="sortType == 'wn8.value' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat='tank in tanksList'>
-                    <td ng-repeat='(id, values) in tank'>{{id}}</td>
-                    <td ng-repeat='(id, values) in tank'>{{values.battles}}</td>
-                    <td ng-repeat='(id, values) in tank'>{{values.avgWinRate | roundTo:2}} %</td>
-                    <td ng-repeat='(id, values) in tank'>{{values.avgDamage | roundTo}}</td>
-                    <td ng-repeat='(id, values) in tank'>{{values.avgXP | roundTo}} (max {{values.maxXP | roundTo}})</td>
-                    <td ng-repeat='(id, values) in tank'>{{values.avgSurvived | roundTo:1}} %</td>
-                    <td ng-repeat='(id, values) in tank' ng-style="{'color': '#fff', 'background-color': values.wn8.color}">{{values.wn8.value | roundTo}}</td>
+                <tr ng-repeat="tank in tanksList | orderBy:sortType:sortReverse">
+                    <td>{{$index + 1}}</td>
+                    <td>{{tank.tankID}}</td>
+                    <td>{{tank.battles}}</td>
+                    <td>{{tank.avgWinRate | roundTo:2}} %</td>
+                    <td>{{tank.avgDamage | roundTo}}</td>
+                    <td>{{tank.avgXP | roundTo}} (max {{values.maxXP | roundTo}})</td>
+                    <td>{{tank.avgSurvived | roundTo:1}} %</td>
+                    <td ng-style="{'color': '#fff', 'background-color': tank.wn8.color}">{{tank.wn8.value | roundTo}}</td>
                 </tr>
             </tbody>
         </table>

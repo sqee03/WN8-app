@@ -27,7 +27,8 @@ angular.module('tankInfo')
                         var avgValues = tank['all'];
                         var tankID = tank['tank_id'];
 
-                        tanksList.push({ [tankID]: {
+                        tanksList.push({
+                            tankID: tankID,
                             avgDamage: avgValues.damage_dealt / avgValues.battles,
                             avgDef: avgValues.dropped_capture_points / avgValues.battles,
                             avgFrag: avgValues.frags / avgValues.battles,
@@ -37,7 +38,7 @@ angular.module('tankInfo')
                             avgSurvived: (avgValues.survived_battles / avgValues.battles) * 100,
                             maxXP: tank.max_xp,
                             battles: avgValues.battles
-                        }});
+                        });
                     });
                 }
 

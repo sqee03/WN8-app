@@ -4,6 +4,10 @@ angular.module('tankInfo')
 
 .controller('tanksListCtrl',
     function ($scope, $rootScope, tankValuesService, WN8Service, growl, _) {
+        /* Variables */
+        $scope.sortType = 'battles';
+        $scope.sortReverse = true;
+
         /**
          * Feeds UI with list of player's tanks
          *
@@ -15,18 +19,21 @@ angular.module('tankInfo')
             tankValuesService.getAllTanksValues().then(function(tanksValues) {
                 if (0 < tanksValues.tanksList.length) { // Check if list of tanks is not empty
                     _.forEach(tanksValues.tanksList, function(averageValues) {
-                        var tankID = Number(Object.keys(averageValues)[0]);
+                        // var tankID = Number(Object.keys(averageValues)[0]);
+                        var tankID = averageValues.tankID;
                         var expectedValues = filterCollection(tanksValues.expectedValues, tankID);
+                        // var averageValues = filterCollection(averageValues, tankID);
 
                         // Skip WN8 calculation when expected values are not available for current tank
                         if (expectedValues) {
                             // Add WN8 for each vehicle within tanks list
-                            getWN8(averageValues[tankID],expectedValues).then(function(wn8) {
-                                averageValues[tankID]['wn8'] = wn8;
+                            getWN8(averageValues,expectedValues).then(function(wn8) {
+                                averageValues['wn8'] = wn8;
                             });
                         }
                     });
                     $scope.tanksList = tanksValues.tanksList;
+                    console.info($scope.tanksList);
                 }
                 else {
                     $scope.tanksList = 'Player has not participated in any battle yet.';
@@ -55,6 +62,7 @@ angular.module('tankInfo')
          *
          * @memberOf module:tankInfo
          * @private
+         * @param {Array} collection of expected values
          * @param {Number} tank ID
          * @returns {Objects} filtered values for one tank
          * @TODO: Make sure that filtered results are always correct!
@@ -74,8 +82,9 @@ angular.module('tankInfo')
          * Feeds UI with WN8
          *
          * @memberOf module:tankInfo
-         * @param {Number} tank ID
-         * @returns {String} WN8
+         * @param {Object} average values
+         * @param {Object} expected values
+         * @returns {Object} WN8 value and color
          */
         function getWN8(averageValues,expectedValues) {
                 // Get WN8 for tank
