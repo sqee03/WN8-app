@@ -10,7 +10,7 @@ angular.module('wotStats')
         // List of API Urls
         var dataContract = {
             'account': {},
-            'tanks': { 'stats': {} },
+            'tanks': { 'stats': {}, 'achievements': {} },
             'expected_values': {}
         };
 
@@ -45,6 +45,7 @@ angular.module('wotStats')
                 // Tank info
                 dataContract['tanks']['stats']['url'] = url_tanks + json.tanks.statistics + '/?' + apikey + '&' + account_id;
                 dataContract['tanks']['stats']['suffix'] = '&' + json.tanks.tank_id + '=';
+                dataContract['tanks']['achievements']['url'] = url_tanks + json.tanks.achievements + '/?' + apikey + '&' + account_id;
             }).error(function (error) {
                 growl.error('Failed to load data contract');
             });

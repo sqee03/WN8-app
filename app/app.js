@@ -26,6 +26,7 @@ angular.module('wotStats', [
         'playerInfo',
         'personalRating',
         'tankInfo',
+        'tankAchievemetns',
         'WN8'
     ])
 

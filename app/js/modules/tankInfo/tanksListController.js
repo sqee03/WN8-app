@@ -3,7 +3,7 @@
 angular.module('tankInfo')
 
 .controller('tanksListCtrl',
-    function ($scope, $rootScope, tankValuesService, WN8Service, growl, _) {
+    function ($scope, $rootScope, tankValuesService, tankAchievementsService, WN8Service, growl, _) {
         /* Variables */
         $scope.sortType = 'battles';
         $scope.sortReverse = true;
@@ -103,9 +103,30 @@ angular.module('tankInfo')
                 });
         };
 
+        /**
+         * Feeds UI with list of achievements
+         *
+         * @memberOf module:tankInfo
+         * @returns {Array} List of tanks and their achievements
+         */
+        function getAchievements() {
+                return tankAchievementsService.getAllTanksAchievements().then(function(achievements) {
+                    $scope.achievements = achievements;
+
+                    tankAchievementsService.getMoeTanks(achievements).then(function(tanksWithMOE) {
+                        $scope.moeTanks = tanksWithMOE;
+                    }, function(error) {
+                        console.error('Failed to get list of tanks with Marks of excelence.');
+                    });
+                }, function(error) {
+                    growl.error('Failed to get list of achievements.');
+                });
+        };
+
         /* Watcher for playerID changes */
         $rootScope.$watch('storedID', function (playerID) {
             console.log('playerID watcher triggered: ', playerID.id);
             getTanksList();
+            getAchievements();
         });
 });

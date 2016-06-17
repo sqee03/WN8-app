@@ -16,6 +16,7 @@
   "tanks": {
     "base_uri": "tanks",
     "tank_id": "tank_id",
-    "statistics": "stats"
+    "statistics": "stats",
+    "achievements": "achievements"
   }
 }

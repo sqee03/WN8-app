@@ -1,6 +1,11 @@
 <div>
     Player vehicles:
 
+    <div ng-if="achievements">
+        MOE:<br/>
+        <pre>{{moeTanks | json}}</pre>
+    </div>
+
     <div ng-if="!isArray(tanksList)">
         {{tanksList}}
     </div>
@@ -12,38 +17,38 @@
                     <th>#</th>
                     <th ng-click="sortType='tankID'; sortReverse=!sortReverse">
                         Tank ID
-                        <span ng-show="sortType == 'tankID' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                        <span ng-show="sortType == 'tankID' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                        <span ng-show="sortType == 'tankID' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'tankID' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                     <th ng-click="sortType='battles'; sortReverse=!sortReverse">
                         Battles
-                        <span ng-show="sortType == 'battles' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                        <span ng-show="sortType == 'battles' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                        <span ng-show="sortType == 'battles' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'battles' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                     <th ng-click="sortType='avgWinRate'; sortReverse=!sortReverse">
                         WR
-                        <span ng-show="sortType == 'avgWinRate' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                        <span ng-show="sortType == 'avgWinRate' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                        <span ng-show="sortType == 'avgWinRate' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'avgWinRate' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                     <th ng-click="sortType='avgDamage'; sortReverse=!sortReverse">
                         Average dmg
-                        <span ng-show="sortType == 'avgDamage' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                        <span ng-show="sortType == 'avgDamage' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                        <span ng-show="sortType == 'avgDamage' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'avgDamage' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                     <th ng-click="sortType='avgXP'; sortReverse=!sortReverse">
                         Average XP
-                        <span ng-show="sortType == 'avgXP' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                        <span ng-show="sortType == 'avgXP' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                        <span ng-show="sortType == 'avgXP' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'avgXP' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                     <th ng-click="sortType='avgSurvived'; sortReverse=!sortReverse">
                         Survived
-                        <span ng-show="sortType == 'avgSurvived' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                        <span ng-show="sortType == 'avgSurvived' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                        <span ng-show="sortType == 'avgSurvived' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'avgSurvived' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                     <th ng-click="sortType = 'wn8.value'; sortReverse = !sortReverse">
                         WN8
-                        <span ng-show="sortType == 'wn8.value' && !sortReverse" class="glyphicon glyphicon-chevron-down"></span>
-                        <span ng-show="sortType == 'wn8.value' && sortReverse" class="glyphicon glyphicon-chevron-up"></span>
+                        <span ng-show="sortType == 'wn8.value' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortType == 'wn8.value' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
                     </th>
                 </tr>
             </thead>
