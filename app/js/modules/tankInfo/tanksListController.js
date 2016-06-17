@@ -33,7 +33,6 @@ angular.module('tankInfo')
                         }
                     });
                     $scope.tanksList = tanksValues.tanksList;
-                    console.info($scope.tanksList);
                 }
                 else {
                     $scope.tanksList = 'Player has not participated in any battle yet.';

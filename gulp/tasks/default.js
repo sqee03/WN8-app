@@ -7,6 +7,7 @@ var runSequence = require('run-sequence');
 gulp.task('dev', function(callback) {
     runSequence('clean',
                 ['js', 'json', 'sass', 'html2js', 'images', 'vendor'],
+                'glyphicons',
                 'inject',
                 'sync',
                 'docs',
