@@ -24,5 +24,8 @@
         "assets/javascripts/bootstrap.min.js"
       ]
     }
+  },
+  "devDependencies": {
+    "progressbar.js": "^1.0.1"
   }
 }
