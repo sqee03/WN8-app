@@ -12,7 +12,8 @@
     "angular-growl-v2": "^0.7.9",
     "bootstrap-sass": "^3.3.6",
     "lodash": "^4.12.0",
-    "moment": "^2.13.0"
+    "moment": "^2.13.0",
+    "progressbar.js": "^1.0.1"
   },
   "overrides": {
     "bootstrap-sass": {
@@ -24,8 +25,5 @@
         "assets/javascripts/bootstrap.min.js"
       ]
     }
-  },
-  "devDependencies": {
-    "progressbar.js": "^1.0.1"
   }
 }

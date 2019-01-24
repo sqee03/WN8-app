@@ -18,5 +18,10 @@
     "tank_id": "tank_id",
     "statistics": "stats",
     "achievements": "achievements"
+  },
+  "tankopedia": {
+    "base_uri": "encyclopedia",
+    "tank_id": "tank_id",
+    "tankinfo": "tankinfo"
   }
 }

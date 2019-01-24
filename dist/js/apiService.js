@@ -14,7 +14,10 @@ angular.module('wotStats')
 
             $http({
                     method: 'GET',
-                    url: url
+                    url: url,
+                    onProgress: function(event) {
+                        console.log(event.total + ') loaded ' + ((event.loaded/event.total) * 100) + '%');
+                    }
                 })
                 .success(function (data) {
                     d.resolve(data);

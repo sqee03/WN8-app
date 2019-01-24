@@ -3,7 +3,7 @@
 angular.module('tankAchievemetns')
 
 .factory('tankAchievementsService',
-    function ($q, $rootScope, apiCalls, dataContractService, growl, _) {
+    function ($q, $rootScope, apiCalls, dataContractService, tankopediaService, growl, _) {
         // Variables
         var dataContract = dataContractService.getDataContract();
         var playerID = $rootScope.storedID.id;
@@ -75,9 +75,13 @@ angular.module('tankAchievemetns')
             _.forEach(moeTanks, function(tank) {
                 var tankID = tank['tankID'];
 
-                moeList.push({
-                    tankID: tankID,
-                });
+                tankopediaService.getTankDescription(tank['tankID']).then(function(description) {
+                    moeList.push({
+                        icon: description.contour_image,
+                        tier: description.tier,
+                        name: description.short_name
+                    });
+                })
             });
 
             d.resolve(moeList);

@@ -20,6 +20,9 @@ angular.module('wotStats', [
         // Filters
         'filters',
 
+        // Common components
+        'components',
+
         // App
         'playerSearch',
         'playerId',
@@ -27,6 +30,7 @@ angular.module('wotStats', [
         'personalRating',
         'tankInfo',
         'tankAchievemetns',
+        'tankopedia',
         'WN8'
     ])
 

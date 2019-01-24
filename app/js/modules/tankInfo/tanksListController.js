@@ -115,6 +115,9 @@ angular.module('tankInfo')
 
                     tankAchievementsService.getMoeTanks(achievements).then(function(tanksWithMOE) {
                         $scope.moeTanks = tanksWithMOE;
+
+                        // Define default sort type for MOE list
+                        $scope.sortTypeMoe = 'tier';
                     }, function(error) {
                         console.error('Failed to get list of tanks with Marks of excelence.');
                     });

@@ -2,8 +2,34 @@
     Player vehicles:
 
     <div ng-if="achievements">
-        MOE:<br/>
-        <pre>{{moeTanks | json}}</pre>
+        Tanks with 3 marks of excellence
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Image
+                    </th>
+                    <th ng-click="sortTypeMoe='tier'; sortReverse=!sortReverse">
+                        Tier
+                        <span ng-show="sortTypeMoe == 'tier' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortTypeMoe == 'tier' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                    </th>
+                    <th ng-click="sortTypeMoe='name'; sortReverse=!sortReverse">
+                        Name
+                        <span ng-show="sortTypeMoe == 'name' && !sortReverse" class="glyphicon glyphicon-triangle-bottom"></span>
+                        <span ng-show="sortTypeMoe == 'name' && sortReverse" class="glyphicon glyphicon-triangle-top"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="tank in moeTanks | orderBy:sortTypeMoe:sortReverse">
+                    <td><img src="{{tank.icon}}" alt="{{tank.name}}"></td>
+                    <td>{{tank.tier}}</td>
+                    <td>{{tank.name}}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div ng-if="!isArray(tanksList)">
